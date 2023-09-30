@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+    db:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'mistar-grab'
+            MYSQL_USER: 'mistar-grab'
+            MYSQL_PASSWORD: 'mistar-grab'
+            MYSQL_ROOT_PASSWORD: 'mistar-grab'
+        ports:
+            - '3307:3306'
+        expose:
+            - '3306'
+        volumes:
+            - mistar-grab:/var/lib/mysql
+volumes:
+    mistar-grab-db:
