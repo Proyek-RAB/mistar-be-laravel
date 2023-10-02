@@ -1,4 +1,5 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.1-fpm-alpine
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apk add --no-cache nginx wget
 
