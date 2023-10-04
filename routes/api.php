@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register')->name('auth.register');
     Route::post('/login', 'login')->name('auth.login');
+    Route::post('/forgot-password', 'forgotPassword')->name('auth.forgot-password');
+    Route::post('/forgot-password/otp', 'forgotPasswordOtpValidation')->name('auth.forgot-password-otp');
+    Route::post('/change-password', 'changePassword')->name('auth.change-password');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

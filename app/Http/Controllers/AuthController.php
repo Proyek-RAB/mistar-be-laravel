@@ -65,4 +65,55 @@ class AuthController extends Controller
             'message' => 'login success'
         ]);
     }
+
+    public function forgotPassword(Request $request) {
+        $email = $request->input('email');
+        // TODO send email
+        return response()->json([
+            'success' => true,
+            'message' => 'forgot password success',
+            'data' => [
+                'countdown_time' => 60,
+            ]
+        ]);
+    }
+
+    public function forgotPasswordOtpValidation(Request $request) {
+        // TODO still hard coded and
+        $otp = $request->input('otp');
+
+        if ($otp == '123456') {
+            return response()->json([
+                'success' => true,
+                'message' => 'success otp valid',
+                'data' => null,
+            ]);
+        } else {
+            return response()->json([
+                'sucess' => false,
+                'message' => 'invalid otp',
+                'data' => [
+                    'last_attempt' => false
+                ]
+            ]);
+        }
+    }
+
+    public function changePassword(Request $request) {
+        $newPassword = $request->input('password');
+        $email = $request->input('email');
+
+        $user = User::query()->where(
+            'email', $email
+        )->first();
+
+        $user->password = $newPassword;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message'=> 'change password success',
+            'data' => null
+        ]);
+    }
 }
