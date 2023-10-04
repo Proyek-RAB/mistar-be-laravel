@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LoginResource;
+use App\Http\Resources\RegisterResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -10,13 +12,11 @@ use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
-    public function register(Request $request): JsonResponse {
+    public function register(Request $request): RegisterResource {
         $this->validate(
             $request,
             [
-                'name' => ['required'],
                 'email' => ['required', 'email'],
-                'phone_number' => ['required', 'unique:users,phone_number'],
                 'password' => ['required'],
             ],
             [
@@ -25,47 +25,26 @@ class AuthController extends Controller
 
         $user = User::query()->create(
             [
-                'name' => $request->input('name'),
+                'full_name' => $request->input('full_name'),
                 'type' => 'USER',
                 'email' => $request->input('email'),
-                'phone_number' => $request->input('phone_number'),
                 'password' => $request->input('password'),
+                'avatar_url' => 'https://www.clipartmax.com/png/middle/347-3473462_blue-icon-data-public-clip-art-black-and-white-library-link-icon.png',
             ]
         );
 
-        return response()->json([
-            'user_id' => $user->id,
-            'message' => 'user created',
-        ]);
+        return (new RegisterResource($user))
+            ->additional([
+                'success' => true,
+                'message' => 'success register user'
+            ]);
     }
 
-    public function login(Request $request): JsonResponse {
+    public function login(Request $request) {
         $credentials = [
-            'name' => $request->input('name'),
+            'email' => $request->input('email'),
             'password' => $request->input('password')
         ];
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'numeric',
-        ]);
-
-        if (!$validator->fails()) {
-            $credentials = [
-                'phone_number' => $request->input('name'),
-                'password' => $request->input('password')
-            ];
-        }
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'email',
-        ]);
-
-        if (!$validator->fails()) {
-            $credentials = [
-                'email' => $request->input('name'),
-                'password' => $request->input('password')
-            ];
-        }
 
         if (! auth()->attempt($credentials)) {
             return response()->json([
@@ -78,11 +57,12 @@ class AuthController extends Controller
         $tokenResult = $user->createToken(request('device', 'Unknown Device'));
         $token = $tokenResult->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'competition_type' => $user->competition_type,
-            'expires_at' => now()->addYear(),
+        return (new LoginResource((object)[
+            'token' => $token,
+            'user'=> $user,
+        ]))->additional([
+            'success'=> true,
+            'message' => 'login success'
         ]);
     }
 }
