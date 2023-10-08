@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InfrastructureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard/line', 'line')->name('dashboard.get-line-report');
         Route::get('/dashboard/area', 'area')->name('dashboard.get-area-report');
         Route::get('/dashboard/user', 'user')->name('dashboard.get-user-report');
+    });
+
+    Route::controller(InfrastructureController::class)->group(function () {
+        Route::get('/infrastructure', 'index')->name('infrastructure.get-list');
+        Route::get('/infrastructure/{id}', 'get')->name('infrastructure.get-one');
+        Route::post('/infrastructure', 'store')->name('infrastructure.create');
+        Route::put('/infrastructure/{id}', 'update')->name('infrastructure.update-one');
+        Route::delete('/infrastructure/{id}', 'destroy')->name('infrastructure.delete-one');
     });
 });
