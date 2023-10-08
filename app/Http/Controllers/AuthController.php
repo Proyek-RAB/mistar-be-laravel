@@ -16,7 +16,7 @@ class AuthController extends Controller
         $this->validate(
             $request,
             [
-                'email' => ['required', 'email'],
+                'email' => ['required', 'email','unique:users,email'],
                 'password' => ['required'],
             ],
             [
@@ -48,8 +48,10 @@ class AuthController extends Controller
 
         if (! auth()->attempt($credentials)) {
             return response()->json([
+                'success' => false,
                 'message' => 'wrong credentials',
-            ], 401);
+                'data' => null
+            ]);
         }
 
         $user = auth()->user();
