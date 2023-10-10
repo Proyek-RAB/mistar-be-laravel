@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InfrastructureController;
+use App\Http\Controllers\InfrastructureEditHistoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard/area', 'area')->name('dashboard.get-area-report');
         Route::get('/dashboard/user', 'user')->name('dashboard.get-user-report');
     });
+    Route::resource('infrastructures', InfrastructureController::class);
+    Route::resource('infrahistory', InfrastructureEditHistoryController::class);
 });

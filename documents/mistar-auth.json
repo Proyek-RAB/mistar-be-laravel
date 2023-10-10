@@ -1,0 +1,127 @@
+{
+    "feature": "AUTHENTICATION",
+    "api": [
+        {
+            "_comment_": "--- SECTION LOGIN ---",
+            "method": "POST",
+            "request": {
+                "email": "admin@gmail.com",
+                "password": "123456"
+            },
+            "response": [
+                {
+                    "success": true,
+                    "message": "",
+                    "data": {
+                        "token": "token",
+                        "user": {
+                            "full_name": "Admin",
+                            "email": "admin@gmail.com",
+                            "avatar_url": "url"
+                        }
+                    }
+                },
+                {
+                    "success": false,
+                    "message": "Email atau Kata sandi yang kamu masukkan salah",
+                    "data": null
+                }
+            ]
+        },
+        {
+            "_comment_": "--- SECTION REGISTRATION ---",
+            "method": "POST",
+            "request": {
+                "full_name": "Admin",
+                "email": "admin@gmail.com",
+                "password": "123456"
+            },
+            "response": [
+                {
+                    "success": true,
+                    "message": "Akun berhasil didaftarkan",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "Email sudah digunakan",
+                    "data": null
+                }
+            ]
+        },
+        {
+            "_comment_": "--- SECTION FORGOT PASSWORD ---",
+            "method": "POST",
+            "request": {
+                "email": "admin@gmail.com"
+            },
+            "response": [
+                {
+                    "success": true,
+                    "message": "",
+                    "data": {
+                        "countdown_time": 60
+                    }
+                },
+                {
+                    "success": false,
+                    "message": "Email tidak terdaftar",
+                    "data": null
+                }
+            ]
+        },
+        {
+            "_comment_": "--- SECTION OTP ---",
+            "method": "POST",
+            "request": {
+                "otp_code": "230501"
+            },
+            "response": [
+                {
+                    "success": true,
+                    "message": "",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "OTP_INVALID",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "OTP_EXPIRED",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "OTP_INVALID_LAST_ATTEMPT",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "OTP_LIMIT_REACHED",
+                    "data": null
+                }
+            ]
+        },
+        {
+            "method": "POST",
+            "request": {
+                "email": "admin@gmail.com",
+                "password": "123456"
+            },
+            "response": [
+                {
+                    "success": true,
+                    "message": "Password akunmu berhasil diubah",
+                    "data": null
+                },
+                {
+                    "success": false,
+                    "message": "",
+                    "data": null
+                }
+            ]
+        }
+    ]
+}
