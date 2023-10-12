@@ -16,8 +16,9 @@ class InfrastructureEditHistory extends Model
         'details',
     ];
     // protected $casts = [
-    //     'details'=>"array"
+    //     'details'=>"json"
     // ];
+
     public function infrastructure(): BelongsTo
     {
         return $this->belongsTo(Infrastructure::class, 'infrastructure_id');

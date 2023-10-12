@@ -70,6 +70,13 @@ class InfrastructureController extends Controller
         // Find the infrastructure by ID
         $infrastructure = Infrastructure::findOrFail($id);
         $beforeUpdate = $infrastructure;
+        $beforeUpdate->details = json_decode($beforeUpdate->details);
+        InfrastructureEditHistory::query()->create([
+            'id'=> Str::uuid(),
+            'infrastructure_id' => $infrastructure->id,
+            'user_id' => auth()->id(), // Assuming you are using authentication
+            'details' => $beforeUpdate->toJson(), // Store the original details as JSON
+        ]);
 
         // Validate the incoming request data
         $request->validate([
@@ -79,14 +86,8 @@ class InfrastructureController extends Controller
             'details' => 'required',
             'status' => 'required',
         ]);
-        $infrastructure->update($request->all());
 
-        InfrastructureEditHistory::create([
-            'id'=> Str::uuid(),
-            'infrastructure_id' => $infrastructure->id,
-            'user_id' => auth()->id(), // Assuming you are using authentication
-            'details' => $beforeUpdate, // Store the original details as JSON
-        ]);
+        $infrastructure->update($request->all());
 
         // Return the updated infrastructure as a JSON response
         return response()->json($infrastructure);

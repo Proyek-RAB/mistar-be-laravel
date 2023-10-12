@@ -1,6 +1,6 @@
 php artisan migrate --path=/database/migrations/2023_10_07_161852_create_users_table.php
 
-jalankan dibawah ini agar berurutan
+jalankan dibawah ini secara berurutan
 php artisan migrate --path=/database/migrations/2023_10_08_110529_create_infrastructure_types_table.php
 php artisan migrate --path=/database/migrations/2023_10_08_110529_create_infrastructure_sub_types_table.php
 php artisan migrate --path=/database/migrations/2023_10_08_110529_create_infrastructures_table.php

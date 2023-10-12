@@ -4,20 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\InfrastructureEditHistory;
+use Illuminate\Support\Str;
+use App\Http\Requests\InfraEditHistoryRequest;
 
 class InfrastructureEditHistoryController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     // Retrieve all infrastructures from the database
-    //     $message = "Get All Infrastructure Edit History";
-    //     // Return the infrastructures as a JSON response
-    //     $perPage = $request->query('per_page', 5);
-    //     $infrastructures = InfrastructureEditHistory::paginate($perPage);
+    public function index(Request $request)
+    {
+        // Retrieve all infrastructures from the database
+        $message = "Get All Infrastructure Edit History";
+        // Return the infrastructures as a JSON response
+        $perPage = $request->query('per_page', 5);
+        $infrastructures = InfrastructureEditHistory::paginate($perPage);
 
 
-    //     return $this->sendResponse($infrastructures, $message);
-    // }
+        return $this->sendResponse($infrastructures, $message);
+    }
+
+    public function addToHistory($request) {
+        $request->validate([
+            'id' => 'required',
+            'infrastructure_id' => 'required',
+            'user_id' => 'required',
+            'details' => 'required',
+        ]);
+        $editHistory = InfrastructureEditHistory::create([
+            'id'=> Str::uuid(),
+            'infrastructure_id' => $request->id,
+            'user_id' => auth()->id(), // Assuming you are using authentication
+            'details' => $request, // Store the original details as JSON
+        ]);
+
+        return $this->sendResponse($editHistory, "History for id". $request->id . "Created");
+    }
 
     // public function show($id)
     // {
