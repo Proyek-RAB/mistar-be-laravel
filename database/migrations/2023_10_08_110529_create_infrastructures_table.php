@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedInteger('sub_type_id');
+            $table->string('sub_type');
+            $table->string('type');
+            $table->string('image');
             $table->foreignUuid('user_id')->constrained();
             $table->string('name');
             $table->json('details');

@@ -38,17 +38,18 @@ class InfrastructureController extends Controller
         return $this->sendResponse($infrastructure, $message);
     }
 
-    public function store(Request $request)
+    public function store(StoreInfrastructureRequest $request)
     {
         // Validate the incoming request data
         // $validated = $request->validated();
-        $request->validate([
-            'user_id' => 'required',
-            'sub_type_id' => 'required',
-            'name' => 'required',
-            'details' => 'required',
-            'status' => 'required',
-        ]);
+        // $request->validate([
+        //     'user_id' => 'required',
+        //     'sub_type_id' => 'required',
+        //     'name' => 'required',
+        //     'details' => 'required',
+        //     'status' => 'required',
+        // ]);
+        $validated = $request->validated();
 
         // Create a new infrastructure record
         $infrastructure = Infrastructure::query()->create([
