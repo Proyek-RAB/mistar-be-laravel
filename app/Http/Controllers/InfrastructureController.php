@@ -54,9 +54,13 @@ class InfrastructureController extends Controller
         $validated = $request->validated(); // get only the field in validation rule
 
         $infrastructure = Infrastructure::query()->create([
+            'user_id' => auth()->user()->id,
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'sub_type' => $request->input('sub_type'),
+            // TODO: check whether front end also send this as a request body
+            'status' => Infrastructure::STATUS_GOOD,
+            'approved_status' => false,
             'detail' => json_encode($request->input('detail')),
         ]);
 

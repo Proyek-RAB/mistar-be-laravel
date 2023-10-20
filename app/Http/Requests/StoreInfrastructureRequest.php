@@ -22,9 +22,9 @@ class StoreInfrastructureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'type' => 'required',
-            'sub_type' => 'required',
+            'name' => 'string|required',
+            'type' => 'string|required|in:Titik,Garis,Bidang',
+            'sub_type' => 'string|required|in:Air Bersih,Air Kotor (Jamban),Persampahan,Jalan & Drainase,Lahan Parkir',
             'detail' => 'required',
         ];
     }

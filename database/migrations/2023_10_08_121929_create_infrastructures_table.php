@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('name');
             $table->string('type')->nullable();
             $table->string('sub_type')->nullable();
+            $table->string('status')->nullable();
+            $table->boolean('approved_status')->nullable();
             $table->json('detail')->nullable();
             $table->timestamps();
         });
