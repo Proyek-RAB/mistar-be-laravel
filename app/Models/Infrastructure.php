@@ -24,7 +24,8 @@ class Infrastructure extends Model
         'type_id',
         'type',
         'details',
-        'image'
+        'image',
+        'status_approval'
     ];
 
     protected $casts = [

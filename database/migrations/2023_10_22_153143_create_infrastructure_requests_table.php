@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('infrastructure_id');
             $table->foreignUuid('user_id')->constrained();
-            $table->enum('status', ['accepted', 'requested']);
+            $table->string('status_approval')->default('requested');
             $table->timestamps();
 
             // Foreign key constraints

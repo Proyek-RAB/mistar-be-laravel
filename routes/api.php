@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IconController;
 use App\Http\Controllers\InfrastructureController;
 use App\Http\Controllers\InfrastructureEditHistoryController;
+use App\Http\Controllers\InfrastructureRequestController;
 use App\Http\Controllers\InfrastructureTypeController;
 use App\Http\Controllers\InfrastructureSubTypeController;
 use Illuminate\Http\Request;
@@ -48,11 +49,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/infrastructures/{id}', 'update')->name('infrastructure.update-infrastructure');
         Route::delete('/infrastructures/{id}', 'destroy')->name('infrastructure.delete-infrastructure');
     });
-    Route::get('/infrastructures /detail/{id}', [InfrastructureController::class, 'getDetail']);
 
-    Route::resource('infrastructurestype', InfrastructureTypeController::class);
-    Route::resource('infrastructuressubtype', InfrastructureSubTypeController::class);
+    Route::controller(InfrastructureRequestController::class)->group(function(){
+        Route::get('/infrastructure/request', 'index')->name('infrastructurerequest.get-all-requested');
+        Route::patch('/infrastructure/request/{id}', 'update')->name('infrastructurerequest.update-requested-infras');
+    });
+
+
+    Route::controller(InfrastructureTypeController::class)->group(function(){
+        Route::get('infrastructuretype', 'index')->name('infrastructuretype.get-all-type');
+    });
+
+    Route::controller(InfrastructureSubTypeController::class)->group(function(){
+        Route::get('infrastructuresubtype', 'index')->name('infrastructuresubtype.get-all-subtype');
+    });
 
     Route::get('icons/{folder}/{filename}', [IconController::class, 'getIcon'])
-    ->where(['folder' => '[A-Za-z0-9_\-]+', 'filename' => '[A-Za-z0-9_\-.]+']);
+        ->where(['folder' => '[A-Za-z0-9_\-]+', 'filename' => '[A-Za-z0-9_\-.]+']);
 });

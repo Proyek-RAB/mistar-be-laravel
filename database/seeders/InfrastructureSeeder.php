@@ -177,7 +177,7 @@ class InfrastructureSeeder extends Seeder
             //     ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
+                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
                     "name"=>"",
                     "type"=>"",
                     "type_id" =>1,
@@ -215,7 +215,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
+                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
                     "name"=>"",
                     "type"=>"line",
                     "type_id" =>2,
@@ -241,7 +241,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
+                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
                     "name"=>"",
                     "type"=>"field",
                     "type_id" =>3,

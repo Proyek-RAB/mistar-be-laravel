@@ -8,6 +8,7 @@ use App\Models\Infrastructure;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Requests\StoreInfrastructureRequest;
 use App\Models\InfrastructureEditHistory;
+use App\Models\InfrastructureRequest;
 use App\Models\InfrastructureSubType;
 use Illuminate\Support\Str;
 use App\Models\InfrastructureType;
@@ -59,6 +60,7 @@ class InfrastructureController extends Controller
         $sub_type = InfrastructureSubType::find($validated['sub_type_id'])->name;
         $user = auth()->user();
 
+
         // Create a new infrastructure record
         $infrastructure = Infrastructure::query()->create([
             'name' => $request->input('name'),
@@ -72,7 +74,12 @@ class InfrastructureController extends Controller
         ]);
 
         $infrastructure->details = json_decode($infrastructure->details);
-
+        //create infrastructure request record
+        var_dump($infrastructure->status_approval);
+        InfrastructureRequest::query()->create([
+            'infrastructure_id' => $infrastructure->id,
+            'user_id' => $user->id,
+        ]);
         // Return the created infrastructure as a JSON response
         return $this->sendResponse($infrastructure, "Infrastructure Created");;
     }
@@ -92,14 +99,14 @@ class InfrastructureController extends Controller
     {
         // Find the infrastructure by ID
         $infrastructure = Infrastructure::findOrFail($id);
-        $beforeUpdate = $infrastructure;
-        $beforeUpdate->details = json_decode($beforeUpdate->details);
-        InfrastructureEditHistory::query()->create([
-            'id'=> Str::uuid(),
-            'infrastructure_id' => $infrastructure->id,
-            'user_id' => auth()->id(), // Assuming you are using authentication
-            'details' => $beforeUpdate->toJson(), // Store the original details as JSON
-        ]);
+        // $beforeUpdate = $infrastructure;
+        // $beforeUpdate->details = json_decode($beforeUpdate->details);
+        // InfrastructureEditHistory::query()->create([
+        //     'id'=> Str::uuid(),
+        //     'infrastructure_id' => $infrastructure->id,
+        //     'user_id' => auth()->id(), // Assuming you are using authentication
+        //     'details' => $beforeUpdate->toJson(), // Store the original details as JSON
+        // ]);
 
         // Validate the incoming request data
         $request->validate([
@@ -107,7 +114,6 @@ class InfrastructureController extends Controller
             'sub_type_id' => 'required',
             'name' => 'required',
             'details' => 'required',
-            'status' => 'required',
         ]);
 
         $infrastructure->update($request->all());

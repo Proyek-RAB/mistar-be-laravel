@@ -14,7 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class InfrastructureRequest extends Model
 {
     use HasFactory, HasUuids;
-    protected $fillable = ['infrastructure_id', 'user_id', 'status'];
+    protected $fillable = [
+        'infrastructure_id',
+        'user_id',
+    ];
 
     public function infrastructure(): BelongsTo
     {
