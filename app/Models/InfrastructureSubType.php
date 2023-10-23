@@ -11,7 +11,11 @@ class InfrastructureSubType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'name', 'icon_url'];
+    protected $fillable = [
+        'type_id',
+        'name',
+        'icon_url'
+    ];
 
     public function type(): BelongsTo
     {

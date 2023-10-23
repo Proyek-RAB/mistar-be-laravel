@@ -10,5 +10,9 @@ php artisan migrate --path=/database/migrations/2023_10_08_110529_create_infrast
 
 
 
+run Seeder
 
+php artisan db:seed --class=InfrastructureTypeSeeder
+php artisan db:seed --class=InfrastructureSubTypeSeeder
+php artisan db:seed --class=InfrastructureSeeder
 

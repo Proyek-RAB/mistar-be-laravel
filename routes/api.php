@@ -2,10 +2,15 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IconController;
 use App\Http\Controllers\InfrastructureController;
 use App\Http\Controllers\InfrastructureEditHistoryController;
+use App\Http\Controllers\InfrastructureTypeController;
+use App\Http\Controllers\InfrastructureSubTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +40,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard/area', 'area')->name('dashboard.get-area-report');
         Route::get('/dashboard/user', 'user')->name('dashboard.get-user-report');
     });
-    Route::resource('infrastructures', InfrastructureController::class);
-    Route::resource('infrahistory', InfrastructureEditHistoryController::class);
+    Route::controller(InfrastructureController::class)->group(function (){
+        Route::get('/infrastructures', 'index')->name('infrastructure.get-all-infrastructure');
+        Route::get('/infrastructures/{id}', 'show')->name('infrastructure.get-all-infrastructure-byId');
+        Route::get('/infrastructures/detail/{id}', 'getDetail')->name('infrastructure.get-infrastructure-detail');
+        Route::post('/infrastructures', 'store')->name('infrastructure.create-infrastructure');
+        Route::patch('/infrastructures/{id}', 'update')->name('infrastructure.update-infrastructure');
+        Route::delete('/infrastructures/{id}', 'destroy')->name('infrastructure.delete-infrastructure');
+    });
+    Route::get('/infrastructures /detail/{id}', [InfrastructureController::class, 'getDetail']);
+
+    Route::resource('infrastructurestype', InfrastructureTypeController::class);
+    Route::resource('infrastructuressubtype', InfrastructureSubTypeController::class);
+
+    Route::get('icons/{folder}/{filename}', [IconController::class, 'getIcon'])
+    ->where(['folder' => '[A-Za-z0-9_\-]+', 'filename' => '[A-Za-z0-9_\-.]+']);
 });

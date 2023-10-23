@@ -22,11 +22,10 @@ class StoreInfrastructureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
             'sub_type_id' => 'required',
+            'type_id' => 'required',
             'name' => 'required',
             'details' => 'required',
-            'status' => 'required'
         ];
     }
 }

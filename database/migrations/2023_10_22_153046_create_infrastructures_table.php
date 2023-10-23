@@ -9,18 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedInteger('sub_type_id');
-            $table->string('sub_type');
-            $table->string('type');
-            $table->string('image');
             $table->foreignUuid('user_id')->constrained();
             $table->string('name');
+            $table->string('type_id');
+            $table->string('type');
+            $table->unsignedInteger('sub_type_id');
+            $table->string('sub_type');
+            $table->json('image');
+            $table->string('status_approval')->default("IN PROGRESS");
             $table->json('details');
-            $table->string('status');
             $table->timestamps();
 
             $table->foreign('sub_type_id')->references('id')->on('infrastructure_sub_types');

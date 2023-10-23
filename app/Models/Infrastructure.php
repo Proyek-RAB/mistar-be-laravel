@@ -17,16 +17,19 @@ class Infrastructure extends Model
     protected $guarded = [];
     protected $fillable = [
         'id',
-        'sub_type_id',
-        'user_id',
         'name',
+        'user_id',
+        'sub_type_id',
+        'sub_type',
+        'type_id',
+        'type',
         'details',
-        'status'
+        'image'
     ];
 
-    // protected $casts = [
-    //     'details' => 'array'
-    // ];
+    protected $casts = [
+        'image' => 'array'
+    ];
 
     public function subType()
     {

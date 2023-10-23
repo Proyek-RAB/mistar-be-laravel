@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('infrastructure_request_histories', function (Blueprint $table) {
+        Schema::create('infrastructure_requests_history', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('infra_request_id');
             $table->foreignUuid('user_id')->constrained();
@@ -21,6 +21,7 @@ return new class extends Migration
             // Foreign key constraints
             $table->foreign('infra_request_id')->references('id')->on('infrastructure_requests');
             // $table->foreignUuid('admin_id')->references('id')->on('users');
+
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('infrastructure_request_histories');
+        Schema::dropIfExists('infrastructure_requests_history');
     }
 };

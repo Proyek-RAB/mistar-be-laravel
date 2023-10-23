@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Infrastructure;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Requests\StoreInfrastructureRequest;
 use App\Models\InfrastructureEditHistory;
+use App\Models\InfrastructureSubType;
 use Illuminate\Support\Str;
+use App\Models\InfrastructureType;
 
 
 class InfrastructureController extends Controller
@@ -35,8 +38,10 @@ class InfrastructureController extends Controller
         // Return the infrastructure as a JSON response
         $infrastructure->details = json_decode($infrastructure->details);
 
-        return $this->sendResponse($infrastructure, $message);
+        // return $this->sendResponse($infrastructure, $message);
+        return $this->sendResponse($infrastructure, "Detail dari infrastructure " . $infrastructure->name);
     }
+
 
     public function store(StoreInfrastructureRequest $request)
     {
@@ -50,20 +55,37 @@ class InfrastructureController extends Controller
         //     'status' => 'required',
         // ]);
         $validated = $request->validated();
+        $type = InfrastructureType::find($validated['type_id'])->name;
+        $sub_type = InfrastructureSubType::find($validated['sub_type_id'])->name;
+        $user = auth()->user();
 
         // Create a new infrastructure record
         $infrastructure = Infrastructure::query()->create([
-            'user_id' => auth()->id(),
-            'sub_type_id' => $request->input('sub_type_id'),
             'name' => $request->input('name'),
+            'user_id' => $user->id,
+            'sub_type_id' => $request->input('sub_type_id'),
+            'sub_type' => $sub_type,
+            'type_id'=> $request->input('type_id'),
+            'type' => $type,
             'details' => json_encode($request->input('details')),
-            'status' => 'hold',
+            'image' => $request->input('image'),
         ]);
 
         $infrastructure->details = json_decode($infrastructure->details);
 
         // Return the created infrastructure as a JSON response
         return $this->sendResponse($infrastructure, "Infrastructure Created");;
+    }
+
+    public function getDetail($id)
+    {
+        $infrastructure = Infrastructure::find($id);
+
+        if (!$infrastructure) {
+            return response()->json(['error' => 'Infrastructure not found'], 404);
+        }
+
+        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
     }
 
     public function update(Request $request, $id)
@@ -99,7 +121,7 @@ class InfrastructureController extends Controller
         // Find the infrastructure by ID
         $infrastructure = Infrastructure::findOrFail($id);
         // Delete related records first
-        InfrastructureEditHistory::where('infrastructure_id', $id)->delete();
+        // InfrastructureEditHistory::where('infrastructure_id', $id)->delete();
         // InfrastructureRequest::where('infrastructure_id', $infrastructureId)->delete();
 
         // Delete the infrastructure record

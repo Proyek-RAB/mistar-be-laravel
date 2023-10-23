@@ -177,12 +177,14 @@ class InfrastructureSeeder extends Seeder
             //     ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a674bd9-5af7-4800-a836-ce2951690fc3",
+                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
                     "name"=>"",
-                    "type"=>"point",
+                    "type"=>"",
+                    "type_id" =>1,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
+                    "status_approval"=>'in progress',
                     "details" => json_encode([
                         "lat_lng"=>[
                             "lat"=>0,
@@ -210,16 +212,17 @@ class InfrastructureSeeder extends Seeder
                             'monthlyServiceBill' => 10000.0
                         ]
                     ]),
-                    "status"=>'hold'
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a674bd9-5af7-4800-a836-ce2951690fc3",
+                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
                     "name"=>"",
                     "type"=>"line",
+                    "type_id" =>2,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
+                    "status_approval"=>'in progress',
                     "details" => json_encode([
                         'lat_lng' => [
                             ['lat' => 0, 'lng' => 0],
@@ -235,16 +238,17 @@ class InfrastructureSeeder extends Seeder
                             'contactPerson' => '+6281234567890',
                         ],
                     ]),
-                    "status"=>'hold'
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a674bd9-5af7-4800-a836-ce2951690fc3",
+                    "user_id"=>"9a6f6c0c-27ab-49ff-b724-946f4498b3ab",
                     "name"=>"",
                     "type"=>"field",
+                    "type_id" =>3,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
+                    "status_approval"=>'in progress',
                     "details" => json_encode([
                         'lat_lng' => [
                             ['lat' => 0, 'lng' => 0],
@@ -263,7 +267,6 @@ class InfrastructureSeeder extends Seeder
                             'contactPerson' => '+6281234567890',
                         ],
                     ]),
-                    "status"=>'hold'
                 ]
             // Add other infrastructure entries similarly
         ];

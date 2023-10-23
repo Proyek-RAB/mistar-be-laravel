@@ -12,7 +12,9 @@ class InfrastructureType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'name', 'icon_url'
+        'id',
+        'name',
+        'icon_url'
     ];
 
     public function subTypes() : HasMany

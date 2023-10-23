@@ -27,7 +27,7 @@ class AuthController extends Controller
         $user = User::query()->create(
             [
                 'full_name' => $request->input('full_name'),
-                'type' => 'USER',
+                'role' => $request->input('role'),
                 'email' => $request->input('email'),
                 'password' => $request->input('password'),
                 'avatar_url' => 'https://www.clipartmax.com/png/middle/347-3473462_blue-icon-data-public-clip-art-black-and-white-library-link-icon.png',
