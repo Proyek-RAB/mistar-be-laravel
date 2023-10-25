@@ -11,12 +11,19 @@ use Illuminate\Http\Request;
 
 class InfrastructureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return new InfrastructureCollection(Infrastructure::all());
+// Retrieve all infrastructures from the database
+        $message = "Get All Infrastructure";
+// Return the infrastructures as a JSON response
+        $perPage = $request->query('per_page', 5);
+        $infrastructures = Infrastructure::paginate($perPage);
+// $infrastructures->data->data-> = json_decode($infrastructures->data->details);
+        foreach ($infrastructures->items() as $infrastructure) {
+            $infrastructure->details = json_decode($infrastructure->details);
+        }
+
+        return $this->sendResponse($infrastructures, $message);
     }
 
     public function get(Request $request)
