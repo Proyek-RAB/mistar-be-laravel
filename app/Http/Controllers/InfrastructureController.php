@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InfrastructureResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Infrastructure;
@@ -18,17 +19,29 @@ class InfrastructureController extends Controller
 {
     public function index(Request $request)
     {
-        // Retrieve all infrastructures from the database
-        $message = "Get All Infrastructure";
-        // Return the infrastructures as a JSON response
-        $perPage = $request->query('per_page', 5);
-        $infrastructures = Infrastructure::paginate($perPage);
-        // $infrastructures->data->data-> = json_decode($infrastructures->data->details);
-        foreach ($infrastructures->items() as $infrastructure) {
-            $infrastructure->details = json_decode($infrastructure->details);
+        $currentPage = 1;
+        $currentLimit = 20;
+        if( $request->has('page') && ctype_digit($request->query('page'))) {
+            $currentPage = intval($request->query('page'));
         }
-
-        return $this->sendResponse($infrastructures, $message);
+        if( $request->has('limit') && ctype_digit($request->query('limit'))) {
+            $currentLimit = intval($request->query('limit'));
+        }
+        $paginator = Infrastructure::query()
+            ->paginate($currentLimit);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'success get all infrastructures',
+                'data' =>
+                    [
+                        'infrastruktur' => InfrastructureResource::collection($paginator->items()),
+                    ],
+                'page' => $currentPage,
+                'total_page' => $paginator->lastPage(),
+                'total_data' => $paginator->total()
+            ]
+        );
     }
 
     public function show($id)
