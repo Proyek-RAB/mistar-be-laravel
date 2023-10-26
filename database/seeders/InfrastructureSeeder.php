@@ -18,7 +18,7 @@ class InfrastructureSeeder extends Seeder
         $infrastructures = [
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
+                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
                     "name"=>"",
                     "type"=>"",
                     "type_id" =>1,
@@ -56,7 +56,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
+                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
                     "name"=>"",
                     "type"=>"line",
                     "type_id" =>2,
@@ -82,7 +82,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
+                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
                     "name"=>"",
                     "type"=>"field",
                     "type_id" =>3,
