@@ -19,71 +19,6 @@ class InfrastructureSeeder extends Seeder
      */
     public function run(): void
     {
-        $infrastructureTypes = [
-            [
-                'id' => 1,
-                'name' => Infrastructure::TYPE_POINT,
-                'icon_url' => env('BE_DOMAIN') . '/type/titik.svg',
-            ],
-            [
-                'id' => 2,
-                'name' => Infrastructure::TYPE_LINE,
-                'icon_url' => env('BE_DOMAIN') . '/type/Garis.svg',
-            ],
-            [
-                'id' => 3,
-                'name' => Infrastructure::TYPE_AREA,
-                'icon_url' => env('BE_DOMAIN') . '/type/bidang.svg',
-            ],
-        ];
-
-        DB::beginTransaction();
-        // database queries here
-        foreach ($infrastructureTypes as $type) {
-            InfrastructureType::create($type);
-        }
-        DB::commit();
-
-        $subTypes = [
-            [
-                'id' => 1,
-                'type_id' => 1,
-                'name' => Infrastructure::SUB_TYPE_CLEAN_WATER,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/water.svg',
-            ],
-            [
-                'id' => 2,
-                'type_id' => 1,
-                'name' => Infrastructure::SUB_TYPE_DIRTY_WATER,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/air_limbah.svg',
-            ],
-            [
-                'id' => 3,
-                'type_id' => 1,
-                'name' => Infrastructure::SUB_TYPE_WASTE,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/air_limbah.svg',
-            ],
-            [
-                'id' => 4,
-                'type_id' => 2,
-                'name' => Infrastructure::SUB_TYPE_ROAD_DRAINAGE,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/road.svg',
-            ],
-            [
-                'id' => 5,
-                'type_id' => 3,
-                'name' => Infrastructure::SUB_TYPE_PARKING_LOT,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/parkir.svg',
-            ],
-        ];
-
-        DB::beginTransaction();
-        // database queries here
-        foreach ($subTypes as $type) {
-            InfrastructureSubType::create($type);
-        }
-        DB::commit();
-
         $infrastructures = [
                 [
                     "id"=>Str::uuid(),
@@ -181,11 +116,8 @@ class InfrastructureSeeder extends Seeder
             // Add other infrastructure entries similarly
         ];
 
-        DB::beginTransaction();
-        // database queries here
         foreach ($infrastructures as $type) {
             Infrastructure::create($type);
         }
-        DB::commit();
     }
 }
