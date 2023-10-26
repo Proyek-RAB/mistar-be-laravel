@@ -50,6 +50,7 @@ class Infrastructure extends Model
         'type',
         'details',
         'image',
+        'status',
         'status_approval'
     ];
 

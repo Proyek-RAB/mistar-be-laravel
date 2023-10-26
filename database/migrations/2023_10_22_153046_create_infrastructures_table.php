@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('sub_type_id');
             $table->string('sub_type');
             $table->json('image');
+            $table->string('status')->default(\App\Models\Infrastructure::STATUS_GOOD);
             $table->string('status_approval')->default("requested");
             $table->json('details');
             $table->timestamps();
