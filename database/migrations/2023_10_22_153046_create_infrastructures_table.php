@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
-            $table->string('name');
-            $table->string('type_id');
-            $table->string('type');
-            $table->unsignedInteger('sub_type_id');
-            $table->string('sub_type');
-            $table->json('image');
+            $table->string('name')->nullable();
+            $table->string('type_id')->nullable();
+            $table->string('type')->nullable();
+            $table->unsignedInteger('sub_type_id')->nullable();
+            $table->string('sub_type')->nullable();
+            $table->json('image')->nullable();
             $table->string('status')->default(\App\Models\Infrastructure::STATUS_GOOD);
             $table->string('status_approval')->default("requested");
-            $table->json('details');
+            $table->json('details')->nullable();
             $table->timestamps();
 
             $table->foreign('sub_type_id')->references('id')->on('infrastructure_sub_types');
