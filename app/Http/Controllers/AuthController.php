@@ -23,12 +23,16 @@ class AuthController extends Controller
             ]
         );
 
-        // $uuid = Str::uuid()->toString();
+        $userRole = User::ROLE_MEMBER;
+        if ($request->has('role') && $request->input('role') == User::ROLE_ADMIN) {
+            $userRole = User::ROLE_ADMIN;
+        }
+
         $user = User::query()->create(
             [
                 'full_name' => $request->input('full_name'),
-                'role' => $request->input('role'),
                 'email' => $request->input('email'),
+                'role' => $userRole,
                 'password' => $request->input('password'),
                 'avatar_url' => 'https://www.clipartmax.com/png/middle/347-3473462_blue-icon-data-public-clip-art-black-and-white-library-link-icon.png',
             ]
@@ -54,7 +58,7 @@ class AuthController extends Controller
                 'data' => null
             ]);
         }
-        /** @var \App\Models\MyUserModel $user **/
+
         $user = auth()->user();
 
         $tokenResult = $user->createToken(request('device', 'Unknown Device'));
