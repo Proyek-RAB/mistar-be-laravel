@@ -19,7 +19,9 @@ class UserResource extends JsonResource
             'role'=>$this->role,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'avatar_url' => $this->avatar_url
+            'avatar_url' => $this->avatar_url,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

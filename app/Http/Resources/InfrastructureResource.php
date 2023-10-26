@@ -23,7 +23,7 @@ class InfrastructureResource extends JsonResource
             'sub_type' => $this->sub_type,
             'status' => $this->status,
             'approved_status' => $this->approved_status,
-            'detail' => json_decode($this->detail),
+            'details' => json_decode($this->details),
             'created_by' => $this->user->full_name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
