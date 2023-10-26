@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Infrastructure;
 use App\Models\InfrastructureType;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,17 +18,17 @@ class InfrastructureTypeSeeder extends Seeder
         $infrastructureTypes = [
             [
                 'id' => 1,
-                'name' => 'Titik',
+                'name' => Infrastructure::TYPE_POINT,
                 'icon_url' => env('BE_DOMAIN') . '/type/titik.svg',
             ],
             [
                 'id' => 2,
-                'name' => 'Garis',
+                'name' => Infrastructure::TYPE_LINE,
                 'icon_url' => env('BE_DOMAIN') . '/type/Garis.svg',
             ],
             [
                 'id' => 3,
-                'name' => 'Bidang',
+                'name' => Infrastructure::TYPE_AREA,
                 'icon_url' => env('BE_DOMAIN') . '/type/bidang.svg',
             ],
         ];
