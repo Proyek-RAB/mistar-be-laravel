@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('infrastructures', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('user_id')->nullable();
             $table->string('name')->nullable();
             $table->string('type_id')->nullable();
             $table->string('type')->nullable();
