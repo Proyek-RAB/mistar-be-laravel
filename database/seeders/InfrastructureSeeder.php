@@ -16,175 +16,16 @@ class InfrastructureSeeder extends Seeder
     public function run(): void
     {
         $infrastructures = [
-            // [
-            //     // replace user_id, with existing user in the db
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // [
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // [
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // [
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // [
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // [
-            //     'id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'air di ciwaruga',
-            //     'details' => json_encode([
-            //         'ownership' => 'bersama',
-            //         'stakeholder' => 'pemerintah',
-            //         'toilet_type' => 'pelengsengan',
-            //         'processing_type' => 'septic tank',
-            //         'service_scope' => [
-            //             'capacity' => 3,
-            //             'kk_count' => 4,
-            //             'people_count' => 20,
-            //         ],
-            //         'monthly_service_bill' => 10000,
-            //         'contact_person' => '087848484848'
-            //     ]),
-            //     'status' => 'hold',
-            // ],
-            // ['id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'NEW 2 air di ciwaruga',
-            //     'details' => json_encode([
-            //             'ownership' => 'bersama',
-            //             'stakeholder' => 'pemerintah',
-            //             'toilet_type' => 'pelengsengan',
-            //             'processing_type' => 'septic tank',
-            //             'service_scope' => [
-            //                 'capacity' => 3,
-            //                 'kk_count' => 4,
-            //                 'people_count' => 20,
-            //             ],
-            //             'monthly_service_bill' => 10000,
-            //             'contact_person' => '087848484848'
-            //         ]),
-            //     'status' => 'hold',
-            //     ],
-            //     ['id' => Str::uuid(),
-            //     'user_id' => '9a5421f6-d829-41df-a286-9408a7997da0',
-            //     'sub_type_id' => 2,
-            //     'name' => 'NEW 3 air di ciwaruga',
-            //     'details' => json_encode([
-            //             'ownership' => 'bersama',
-            //             'stakeholder' => 'pemerintah',
-            //             'toilet_type' => 'pelengsengan',
-            //             'processing_type' => 'septic tank',
-            //             'service_scope' => [
-            //                 'capacity' => 3,
-            //                 'kk_count' => 4,
-            //                 'people_count' => 20,
-            //             ],
-            //             'monthly_service_bill' => 10000,
-            //             'contact_person' => '087848484848'
-            //         ]),
-            //     'status' => 'hold',
-            //     ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
+                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
                     "name"=>"",
                     "type"=>"",
                     "type_id" =>1,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
-                    "status_approval"=>'in progress',
+                    "status_approval"=>'requested',
                     "details" => json_encode([
                         "lat_lng"=>[
                             "lat"=>0,
@@ -215,14 +56,14 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
+                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
                     "name"=>"",
                     "type"=>"line",
                     "type_id" =>2,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
-                    "status_approval"=>'in progress',
+                    "status_approval"=>'requested',
                     "details" => json_encode([
                         'lat_lng' => [
                             ['lat' => 0, 'lng' => 0],
@@ -241,14 +82,14 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a6fe353-df50-46cc-a907-7ce66844fcbd",
+                    "user_id"=>"9a73adde-1f63-4097-8c87-95343b46d38e",
                     "name"=>"",
                     "type"=>"field",
                     "type_id" =>3,
                     "sub_type"=>"",
                     "sub_type_id"=>2,
                     "image"=>"form-data",
-                    "status_approval"=>'in progress',
+                    "status_approval"=>'requested',
                     "details" => json_encode([
                         'lat_lng' => [
                             ['lat' => 0, 'lng' => 0],

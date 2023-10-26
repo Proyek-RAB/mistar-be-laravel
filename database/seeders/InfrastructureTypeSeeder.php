@@ -17,17 +17,17 @@ class InfrastructureTypeSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Titik',
-                'icon_url' => env('BE_DOMAIN') . '/static/icons/jenis data new/titik.svg',
+                'icon_url' => env('BE_DOMAIN') . '/type/titik.svg',
             ],
             [
                 'id' => 2,
                 'name' => 'Garis',
-                'icon_url' => env('BE_DOMAIN') . '/static/icons/jenis data new/Garis.svg',
+                'icon_url' => env('BE_DOMAIN') . '/type/Garis.svg',
             ],
             [
                 'id' => 3,
                 'name' => 'Bidang',
-                'icon_url' => env('BE_DOMAIN') . '/static/icons/jenis data new/bidang.svg',
+                'icon_url' => env('BE_DOMAIN') . '/type/bidang.svg',
             ],
         ];
 
