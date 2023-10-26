@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('infrastructure_sub_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('type_id')->nullable();
             $table->string('name');
             $table->text('icon_url')->nullable();
             $table->timestamps();
