@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Infrastructure;
@@ -18,7 +19,7 @@ class InfrastructureSeeder extends Seeder
         $infrastructures = [
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
+                    "user_id"=>User::query()->first()->id,
                     "name"=>"",
                     "type"=>"",
                     "type_id" =>1,
@@ -56,7 +57,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
+                    "user_id"=>User::query()->first()->id,
                     "name"=>"",
                     "type"=>"line",
                     "type_id" =>2,
@@ -82,7 +83,7 @@ class InfrastructureSeeder extends Seeder
                 ],
                 [
                     "id"=>Str::uuid(),
-                    "user_id"=>"9a75bf5a-1e26-499c-be24-d4cba5a6e141",
+                    "user_id"=>User::query()->first()->id,
                     "name"=>"",
                     "type"=>"field",
                     "type_id" =>3,
