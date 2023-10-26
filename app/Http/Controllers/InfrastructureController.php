@@ -69,6 +69,7 @@ class InfrastructureController extends Controller
             'sub_type' => $sub_type,
             'type_id'=> $request->input('type_id'),
             'type' => $type,
+            'status' => $request->input('status'),
             'details' => json_encode($request->input('details')),
             'image' => $request->input('image'),
         ]);
