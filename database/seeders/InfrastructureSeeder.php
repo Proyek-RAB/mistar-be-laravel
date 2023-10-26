@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Infrastructure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -36,9 +37,12 @@ class InfrastructureSeeder extends Seeder
             ],
         ];
 
+        DB::beginTransaction();
+        // database queries here
         foreach ($infrastructureTypes as $type) {
             InfrastructureType::create($type);
         }
+        DB::commit();
 
         $subTypes = [
             [
@@ -73,9 +77,12 @@ class InfrastructureSeeder extends Seeder
             ],
         ];
 
+        DB::beginTransaction();
+        // database queries here
         foreach ($subTypes as $type) {
             InfrastructureSubType::create($type);
         }
+        DB::commit();
 
         $infrastructures = [
                 [
@@ -173,8 +180,12 @@ class InfrastructureSeeder extends Seeder
                 ]
             // Add other infrastructure entries similarly
         ];
+
+        DB::beginTransaction();
+        // database queries here
         foreach ($infrastructures as $type) {
             Infrastructure::create($type);
         }
+        DB::commit();
     }
 }
