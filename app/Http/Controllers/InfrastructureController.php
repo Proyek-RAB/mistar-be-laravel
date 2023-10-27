@@ -109,6 +109,18 @@ class InfrastructureController extends Controller
         return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
     }
 
+    public function approve($id)
+    {
+        $infrastructure = Infrastructure::query()
+        ->where('id', $id)
+        ->update([
+            'status_approval' => Infrastructure::STATUS_APPROVAL_APPROVED
+        ]);
+
+        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
+    }
+
+
     public function update(Request $request, $id)
     {
         // Find the infrastructure by ID
@@ -150,5 +162,6 @@ class InfrastructureController extends Controller
         // Return a success message
         return $this->sendResponse($infrastructure, "Infrastructure with id" . $id . " succesfully deleted");
         }
+
 
 }

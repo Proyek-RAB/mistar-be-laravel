@@ -37,6 +37,12 @@ class Infrastructure extends Model
 
     const STATUS_BROKEN = 'rusak';
 
+    const STATUS_APPROVAL_REQUESTED = 'requested';
+
+    const STATUS_APPROVAL_APPROVED = 'approved';
+
+    const STATUS_APPROVAL_REJECTED = 'rejected';
+
     const THUMBNAIL_IMAGES = 'THUMBNAIL_IMAGES';
 
     protected $guarded = [];
