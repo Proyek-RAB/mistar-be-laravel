@@ -32,13 +32,13 @@ class InfrastructureSubTypeSeeder extends Seeder
                 'id' => 3,
                 'type_id' => 1,
                 'name' => Infrastructure::SUB_TYPE_WASTE,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/air_limbah.svg',
+                'icon_url' => env('BE_DOMAIN') . '/icon_infras/persampahan.svg',
             ],
             [
                 'id' => 4,
                 'type_id' => 2,
                 'name' => Infrastructure::SUB_TYPE_ROAD_DRAINAGE,
-                'icon_url' => env('BE_DOMAIN') . '/icon_infras/road.svg',
+                'icon_url' => env('BE_DOMAIN') . '/icon_infras/jalan_drainase.svg',
             ],
             [
                 'id' => 5,

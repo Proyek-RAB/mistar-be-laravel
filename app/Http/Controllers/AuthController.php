@@ -60,7 +60,8 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-
+        
+        /** @var \App\Models\MyUserModel $user **/
         $tokenResult = $user->createToken(request('device', 'Unknown Device'));
         $token = $tokenResult->plainTextToken;
 
