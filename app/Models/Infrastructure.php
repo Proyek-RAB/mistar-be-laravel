@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\InfrastructureSubType;
 use App\Models\InfrastructureEditHistory;
 use App\Models\InfrastructureRequest;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
@@ -15,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Infrastructure extends Model implements HasMedia
 {
-    use HasFactory, HasUuids, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
     const TYPE_POINT = 'Titik';
 

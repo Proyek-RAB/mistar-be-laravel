@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('icon_url')->nullable();
             $table->timestamps();
 
-            $table->foreign('type_id')->references('id')->on('infrastructure_types');
         });
     }
 

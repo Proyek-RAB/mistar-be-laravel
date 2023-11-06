@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('infrastructures', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->nullable();
+            $table->id();
+            $table->bigInteger('user_id')->nullable();
             $table->string('name')->nullable();
             $table->string('type_id')->nullable();
             $table->string('type')->nullable();
@@ -25,7 +25,6 @@ return new class extends Migration
             $table->json('details')->nullable();
             $table->timestamps();
 
-            $table->foreign('sub_type_id')->references('id')->on('infrastructure_sub_types');
             // $table->foreignUuid('fk_user_id')->references('id')->on('users');
         });
     }

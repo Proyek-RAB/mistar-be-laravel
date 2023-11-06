@@ -12,14 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('infrastructure_requests', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('infrastructure_id');
-            $table->foreignUuid('user_id')->constrained();
+            $table->id();
+            $table->bigInteger('infrastructure_id');
+            $table->bigInteger('user_id')->constrained();
             $table->string('status_approval')->default('requested');
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('infrastructure_id')->references('id')->on('infrastructures');
             // $table->foreign('user_id')->references('id')->on('users');
         });
     }

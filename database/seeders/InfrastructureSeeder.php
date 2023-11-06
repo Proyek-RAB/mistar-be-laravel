@@ -21,7 +21,6 @@ class InfrastructureSeeder extends Seeder
     {
         $infrastructures = [
                 [
-                    "id"=>Str::uuid(),
                     "user_id"=>User::query()->first()->id,
                     "name"=>"",
                     "type"=>"",

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class InfrastructureRequest extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
     protected $fillable = [
         'infrastructure_id',
         'user_id',

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InfrastructureRequestHistory extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
     protected $fillable = ['infrastructure_request_id', 'admin_id', 'details'];
 
     public function infrastructure_request() : BelongsTo
