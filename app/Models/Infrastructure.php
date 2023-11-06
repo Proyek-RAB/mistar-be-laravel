@@ -84,4 +84,8 @@ class Infrastructure extends Model
         return $this->hasMany(InfrastructureRequest::class);
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(self::THUMBNAIL_IMAGES);
+    }
 }

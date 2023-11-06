@@ -50,7 +50,7 @@ class InfrastructureController extends Controller
         $infrastructure = Infrastructure::findOrFail($id);
         $message = 'Get Infrastructure by Id: ' . $id;
         // Return the infrastructure as a JSON response
-        $infrastructure->details = json_decode($infrastructure->details);
+        $infrastructure->details = json_decode(json_decode($infrastructure->details));
 
         // return $this->sendResponse($infrastructure, $message);
         return $this->sendResponse($infrastructure, "Detail dari infrastructure " . $infrastructure->name);
