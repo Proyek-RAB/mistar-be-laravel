@@ -89,7 +89,6 @@ class InfrastructureController extends Controller
 
         $infrastructure->details = json_decode($infrastructure->details);
         //create infrastructure request record
-        var_dump($infrastructure->status_approval);
         InfrastructureRequest::query()->create([
             'infrastructure_id' => $infrastructure->id,
             'user_id' => $user->id,
