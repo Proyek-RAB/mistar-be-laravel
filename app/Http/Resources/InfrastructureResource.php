@@ -24,6 +24,7 @@ class InfrastructureResource extends JsonResource
             'status' => $this->status,
             'approved_status' => $this->approved_status,
             'details' => json_decode(json_decode($this->details)),
+            'images' => $this->image,
             'created_by' => $this->user->full_name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
