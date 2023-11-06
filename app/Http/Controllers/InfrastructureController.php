@@ -69,12 +69,28 @@ class InfrastructureController extends Controller
         //     'status' => 'required',
         // ]);
 
-        if ($request->hasFile('images')) {
-            $infrastructure = Infrastructure::query()
-                ->where('user_id', auth()->user()->id)
-                ->orderBy('created_at', 'desc')
-                ->first();
 
+
+        $validated = $request->validated();
+        $type = InfrastructureType::find($validated['type_id'])->name;
+        $sub_type = InfrastructureSubType::find($validated['sub_type_id'])->name;
+        $user = auth()->user();
+
+
+        // Create a new infrastructure record
+        $infrastructure = Infrastructure::query()->create([
+            'name' => $request->input('name'),
+            'user_id' => $user->id,
+            'sub_type_id' => $request->input('sub_type_id'),
+            'sub_type' => $sub_type,
+            'type_id'=> $request->input('type_id'),
+            'type' => $type,
+            'status' => $request->input('status'),
+            'details' => json_encode($request->input('details')),
+            'image' => $request->input('image'),
+        ]);
+
+        if ($request->hasFile('images')) {
             if ($infrastructure == null) {
                 return response()->json([
                     'message' => 'not found'
@@ -84,37 +100,16 @@ class InfrastructureController extends Controller
             foreach ($request->file('images') as $file) {
                 $infrastructure->addMedia($file)->toMediaCollection(Infrastructure::THUMBNAIL_IMAGES);
             }
-
-            return $this->sendResponse($infrastructure, "Infrastructure Image added");
-        } else {
-            $validated = $request->validated();
-            $type = InfrastructureType::find($validated['type_id'])->name;
-            $sub_type = InfrastructureSubType::find($validated['sub_type_id'])->name;
-            $user = auth()->user();
-
-
-            // Create a new infrastructure record
-            $infrastructure = Infrastructure::query()->create([
-                'name' => $request->input('name'),
-                'user_id' => $user->id,
-                'sub_type_id' => $request->input('sub_type_id'),
-                'sub_type' => $sub_type,
-                'type_id'=> $request->input('type_id'),
-                'type' => $type,
-                'status' => $request->input('status'),
-                'details' => json_encode($request->input('details')),
-                'image' => $request->input('image'),
-            ]);
-
-            $infrastructure->details = json_decode($infrastructure->details);
-            //create infrastructure request record
-            InfrastructureRequest::query()->create([
-                'infrastructure_id' => $infrastructure->id,
-                'user_id' => $user->id,
-            ]);
-            // Return the created infrastructure as a JSON response
-            return $this->sendResponse($infrastructure, "Infrastructure Created");
         }
+
+        $infrastructure->details = json_decode($infrastructure->details);
+        //create infrastructure request record
+        InfrastructureRequest::query()->create([
+            'infrastructure_id' => $infrastructure->id,
+            'user_id' => $user->id,
+        ]);
+        // Return the created infrastructure as a JSON response
+        return $this->sendResponse($infrastructure, "Infrastructure Created");
     }
 
     public function getDetail($id)
