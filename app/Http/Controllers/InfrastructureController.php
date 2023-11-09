@@ -33,10 +33,7 @@ class InfrastructureController extends Controller
             [
                 'success' => true,
                 'message' => 'success get all infrastructures',
-                'data' =>
-                    [
-                        'infrastruktur' => InfrastructureResource::collection($paginator->items()),
-                    ],
+                'data' => InfrastructureResource::collection($paginator->items()),
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
                 'total_data' => $paginator->total()
