@@ -41,6 +41,30 @@ class InfrastructureController extends Controller
         );
     }
 
+    public function getInfrastructureHistory(Request $request)
+    {
+        $currentPage = 1;
+        $currentLimit = 20;
+        if( $request->has('page') && ctype_digit($request->query('page'))) {
+            $currentPage = intval($request->query('page'));
+        }
+        if( $request->has('limit') && ctype_digit($request->query('limit'))) {
+            $currentLimit = intval($request->query('limit'));
+        }
+        $paginator = Infrastructure::query()
+            ->paginate($currentLimit);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'success get all infrastructures',
+                'data' => InfrastructureResource::collection($paginator->items()),
+                'page' => $currentPage,
+                'total_page' => $paginator->lastPage(),
+                'total_data' => $paginator->total()
+            ]
+        );
+    }
+
     public function show($id)
     {
         // Find the infrastructure by ID
