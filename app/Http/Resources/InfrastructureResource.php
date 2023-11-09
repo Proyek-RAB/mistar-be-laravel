@@ -23,6 +23,9 @@ class InfrastructureResource extends JsonResource
             $thumbnailImageUrls[] = $file->getFullUrl();
         }
 
+        $details = json_decode(json_decode($this->details));
+        $details->description->contact_person = substr_replace($details->description->contact_person, '*', 0, 5);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,7 +33,7 @@ class InfrastructureResource extends JsonResource
             'sub_type' => $this->sub_type,
             'status' => $this->status,
             'approved_status' => $this->approved_status,
-            'details' => json_decode(json_decode($this->details)),
+            'details' => $details,
             'images' => $thumbnailImageUrls,
             'created_by' => $this->user->full_name,
             'created_at' => $this->created_at,
