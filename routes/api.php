@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(InfrastructureController::class)->group(function (){
         Route::get('/infrastructures', 'index')->name('infrastructure.get-all-infrastructure');
-        Route::get('/history', 'getInfrastructureHistory')->name('infrastructure.get-all-infrastructure-history');
+        Route::get('/history', 'index')->name('infrastructure.get-all-infrastructure-history');
         Route::get('/infrastructures/{id}', 'show')->name('infrastructure.get-all-infrastructure-byId');
         Route::get('/infrastructures/detail/{id}', 'getDetail')->name('infrastructure.get-infrastructure-detail');
         Route::post('/infrastructures', 'store')->name('infrastructure.create-infrastructure');
