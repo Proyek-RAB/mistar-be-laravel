@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +28,14 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e): JsonResponse
+    {
+//        if ($e instanceof HttpException) {
+//            return response()->json(new ErrorResource($e->getErrCode(), $e->getMessage()), $e->getStatusCode());
+//        }
+//        return parent::render($request, $e);
+        return response()->json(new ErrorResource('API_ERROR', 'There is something wrong with the serve'), 200);
     }
 }
