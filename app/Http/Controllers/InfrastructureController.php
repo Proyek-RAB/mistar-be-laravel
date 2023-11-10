@@ -52,7 +52,6 @@ class InfrastructureController extends Controller
             $currentLimit = intval($request->query('limit'));
         }
         $paginator = Infrastructure::query()
-            ->where('status_approval', $request->query('status_approval'))
             ->paginate($currentLimit);
         return response()->json(
             [
