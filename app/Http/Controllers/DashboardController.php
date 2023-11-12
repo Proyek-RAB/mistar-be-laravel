@@ -70,7 +70,7 @@ class DashboardController extends Controller
             ->where('type', Infrastructure::TYPE_POINT);
 
         if ($request->has('keyword')) {
-            $paginator = $paginator->where('name', $request->query('keyword'));
+            $paginator = $paginator->where('name', 'like', '%' . $request->query('keyword') . '%');
         }
 
         $paginator = $paginator->paginate($currentLimit);
