@@ -83,6 +83,30 @@ class InfrastructureController extends Controller
         );
     }
 
+    public function getSelfInfrastructureDashboardCount(Request $request)
+    {
+        $requestedCount = Infrastructure::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED)
+            ->count();
+        $acceptedCount = Infrastructure::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('status_approval', Infrastructure::STATUS_APPROVAL_APPROVED)
+            ->count();
+        $totalCount = $requestedCount + $acceptedCount;
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'success get history infrastructure count',
+                'data' => [
+                    'total_count' => $totalCount,
+                    'requested_count' => $requestedCount,
+                    'accepted_count' => $acceptedCount,
+                ],
+            ]
+        );
+    }
+
     public function show($id, Request $request)
     {
         // Find the infrastructure by ID
