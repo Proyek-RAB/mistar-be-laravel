@@ -155,7 +155,13 @@ class InfrastructureController extends Controller
             'status_approval' => Infrastructure::STATUS_APPROVAL_APPROVED
         ]);
 
-        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'infrastructure has been succesfully approved',
+                'data' => null
+            ]
+        );
     }
 
     public function deny($id)
@@ -166,7 +172,13 @@ class InfrastructureController extends Controller
                 'status_approval' => Infrastructure::STATUS_APPROVAL_REJECTED
             ]);
 
-        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'infrastructure has been succesfully rejected',
+                'data' => null
+            ]
+        );
     }
 
 
