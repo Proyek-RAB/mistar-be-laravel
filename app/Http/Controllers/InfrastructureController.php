@@ -123,7 +123,7 @@ class InfrastructureController extends Controller
                         ->orderBy('id', 'asc')
                         ->get();
                     break;
-                } else if (array_key_exists($subTypeId, $idExist)) {
+                } else if (!array_key_exists($subTypeId, $idExist)) {
                     $infrastructureSubTypeList[] = InfrastructureSubType::query()
                         ->where('id', $subTypeId)
                         ->first();
