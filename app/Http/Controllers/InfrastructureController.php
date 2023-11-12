@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InfrastructureHistoryResource;
 use App\Http\Resources\InfrastructureResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -59,7 +60,7 @@ class InfrastructureController extends Controller
             [
                 'success' => true,
                 'message' => 'success get all infrastructures',
-                'data' => InfrastructureResource::collection($paginator->items()),
+                'data' => InfrastructureHistoryResource::collection($paginator->items()),
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
                 'total_data' => $paginator->total()
