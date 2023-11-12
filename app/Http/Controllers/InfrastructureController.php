@@ -117,6 +117,7 @@ class InfrastructureController extends Controller
                 ->get();
         } else {
             $idExist = [];
+            sort($subTypeIdList);
             foreach($subTypeIdList as $subTypeId) {
                 if ($subTypeId == 0) {
                     $infrastructureSubTypeList = InfrastructureSubType::query()
