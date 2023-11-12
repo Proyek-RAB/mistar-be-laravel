@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
 //        if ($e instanceof HttpException) {
 //            return response()->json(new ErrorResource($e->getErrCode(), $e->getMessage()), $e->getStatusCode());
 //        }
-//        return parent::render($request, $e);
-        return response()->json(new ErrorResource('API_ERROR', 'There is something wrong with the serve'), 200);
+        return parent::render($request, $e);
+//        return response()->json(new ErrorResource('API_ERROR', 'There is something wrong with the serve'), 200);
     }
 }
