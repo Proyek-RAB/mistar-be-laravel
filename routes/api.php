@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/infrastructures/{id}', 'update')->name('infrastructure.update-infrastructure');
         Route::put('/infrastructures/{id}/accept', 'approve')->name('infrastructure.approve');
         Route::put('/infrastructures/{id}/deny', 'deny')->name('infrastructure.deny');
+        Route::put('/infrastructures/{id}/status', 'changeStatus')->name('infrastructure.changeStatus');
 
         Route::delete('/infrastructures/{id}', 'destroy')->name('infrastructure.delete-infrastructure');
     });
