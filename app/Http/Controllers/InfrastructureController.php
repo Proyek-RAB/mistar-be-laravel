@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\InfrastructureHistoryResource;
 use App\Http\Resources\InfrastructureResource;
+use App\Http\Resources\InfrastructureSearchResource;
 use App\Http\Resources\InfrastructureWebResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -330,7 +331,19 @@ class InfrastructureController extends Controller
 
         // Return a success message
         return $this->sendResponse($infrastructure, "Infrastructure with id" . $id . " succesfully deleted");
-        }
+    }
+
+    public function searchInfrastructure(Request $request) {
+        $infrastructures = Infrastructure::query()
+            ->where('name', 'like', '%' . $request->query('keyword') . '%')
+            ->limit(5)
+            ->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'search infrastructure success',
+            'data' => InfrastructureSearchResource::collection($infrastructures)
+        ]);
+    }
 
 
 }
