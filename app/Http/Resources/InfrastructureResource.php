@@ -25,7 +25,7 @@ class InfrastructureResource extends JsonResource
             $thumbnailImageUrls[] = $file->getFullUrl();
         }
 
-        $details = json_decode(json_decode($this->details));
+        $details = json_decode(($this->details));
         $details->description->contact_person = substr_replace($details->description->contact_person, '*****', 0, 5);
 
         $subType = InfrastructureSubType::query()->where('name', $this->sub_type)->first();
