@@ -67,8 +67,13 @@ class DashboardController extends Controller
             $currentLimit = intval($request->query('limit'));
         }
         $paginator = Infrastructure::query()
-            ->where('type', Infrastructure::TYPE_POINT)
-            ->paginate($currentLimit);
+            ->where('type', Infrastructure::TYPE_POINT);
+
+        if ($request->has('keyword')) {
+            $paginator = $paginator->where('name', $request->query('keyword'));
+        }
+
+        $paginator = $paginator->paginate($currentLimit);
         return response()->json(
             [
                 'success' => true,
