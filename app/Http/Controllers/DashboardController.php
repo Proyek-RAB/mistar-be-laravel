@@ -99,8 +99,13 @@ class DashboardController extends Controller
             $currentLimit = intval($request->query('limit'));
         }
         $paginator = Infrastructure::query()
-            ->where('type', Infrastructure::TYPE_LINE)
-            ->paginate($currentLimit);
+            ->where('type', Infrastructure::TYPE_LINE);
+
+        if ($request->has('keyword')) {
+            $paginator = $paginator->where('name', 'like', '%' . $request->query('keyword') . '%');
+        }
+
+        $paginator = $paginator->paginate($currentLimit);
         return response()->json(
             [
                 'success' => true,
@@ -126,8 +131,13 @@ class DashboardController extends Controller
             $currentLimit = intval($request->query('limit'));
         }
         $paginator = Infrastructure::query()
-            ->where('type', Infrastructure::TYPE_AREA)
-            ->paginate($currentLimit);
+            ->where('type', Infrastructure::TYPE_AREA);
+
+        if ($request->has('keyword')) {
+            $paginator = $paginator->where('name', 'like', '%' . $request->query('keyword') . '%');
+        }
+
+        $paginator = $paginator->paginate($currentLimit);
         return response()->json(
             [
                 'success' => true,
