@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\InfrastructureResource;
+use App\Http\Resources\InfrastructureWebResource;
 use App\Http\Resources\UserResource;
 use App\Models\Infrastructure;
 use App\Models\User;
@@ -80,7 +80,7 @@ class DashboardController extends Controller
                 'message' => 'success get points',
                 'data' =>
                     [
-                        'infrastruktur' => InfrastructureResource::collection($paginator->items()),
+                        'infrastruktur' => InfrastructureWebResource::collection($paginator->items()),
                     ],
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
@@ -112,7 +112,7 @@ class DashboardController extends Controller
                 'message' => 'success get lines',
                 'data' =>
                     [
-                        'infrastruktur' => InfrastructureResource::collection($paginator->items()),
+                        'infrastruktur' => InfrastructureWebResource::collection($paginator->items()),
                     ],
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
@@ -144,7 +144,7 @@ class DashboardController extends Controller
                 'message' => 'success get areas',
                 'data' =>
                     [
-                        'infrastruktur' => InfrastructureResource::collection($paginator->items()),
+                        'infrastruktur' => InfrastructureWebResource::collection($paginator->items()),
                     ],
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
