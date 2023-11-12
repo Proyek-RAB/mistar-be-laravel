@@ -117,9 +117,16 @@ class InfrastructureController extends Controller
                 ->get();
         } else {
             foreach($subTypeIdList as $subTypeId) {
-                $infrastructureSubTypeList[] = InfrastructureSubType::query()
-                    ->where('id', $subTypeId)
-                    ->first();
+                if ($subTypeId == 0) {
+                    $infrastructureSubTypeList = InfrastructureSubType::query()
+                        ->orderBy('id', 'asc')
+                        ->get();
+                    break;
+                } else {
+                    $infrastructureSubTypeList[] = InfrastructureSubType::query()
+                        ->where('id', $subTypeId)
+                        ->first();
+                }
             }
         }
 
