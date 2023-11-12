@@ -107,6 +107,42 @@ class InfrastructureController extends Controller
         );
     }
 
+    public function getSelfInfrastructureDashboardCountBySubTypeId(Request $request)
+    {
+        $subTypeIdList = $request->input('sub_type_id_list');
+        $infrastructureSubTypeList = [];
+        if ($subTypeIdList[0] == 0) {
+            $infrastructureSubTypeList = InfrastructureSubType::query()
+                ->orderBy('id', 'asc')
+                ->get();
+        } else {
+            foreach($subTypeIdList as $subTypeId) {
+                $infrastructureSubTypeList[] = InfrastructureSubType::query()
+                    ->where('id', $subTypeId)
+                    ->first();
+            }
+        }
+
+        $responseList = [];
+        foreach($infrastructureSubTypeList as $infrastructureSubType) {
+            $responseList[] = [
+                'icon_url' => $infrastructureSubType->icon_url,
+                'name' => 'Infrastruktur ' . $infrastructureSubType->name,
+                'count' => Infrastructure::query()
+                    ->where('sub_type_id', $infrastructureSubType->id)
+                    ->count()
+            ];
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'success get history infrastructure by subtype count',
+                'data' => $responseList,
+            ]
+        );
+    }
+
     public function show($id, Request $request)
     {
         // Find the infrastructure by ID
