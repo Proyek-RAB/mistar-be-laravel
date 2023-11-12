@@ -290,6 +290,23 @@ class InfrastructureController extends Controller
         );
     }
 
+    public function changeStatus($id, Request $request)
+    {
+        $infrastructure = Infrastructure::query()
+            ->where('id', $id)
+            ->update([
+                'status' => $request->query('status')
+            ]);
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'infrastructure status has been succesfully changed',
+                'data' => null
+            ]
+        );
+    }
+
 
     public function update(Request $request, $id)
     {
