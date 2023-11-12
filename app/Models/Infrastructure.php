@@ -40,9 +40,9 @@ class Infrastructure extends Model implements HasMedia
 
     const STATUS_APPROVAL_REQUESTED = 'requested';
 
-    const STATUS_APPROVAL_APPROVED = 'approved';
+    const STATUS_APPROVAL_APPROVED = 'accepted';
 
-    const STATUS_APPROVAL_REJECTED = 'rejected';
+    const STATUS_APPROVAL_REJECTED = 'denied';
 
     const THUMBNAIL_IMAGES = 'THUMBNAIL_IMAGES';
 

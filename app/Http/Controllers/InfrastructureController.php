@@ -158,6 +158,17 @@ class InfrastructureController extends Controller
         return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
     }
 
+    public function deny($id)
+    {
+        $infrastructure = Infrastructure::query()
+            ->where('id', $id)
+            ->update([
+                'status_approval' => Infrastructure::STATUS_APPROVAL_REJECTED
+            ]);
+
+        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
+    }
+
 
     public function update(Request $request, $id)
     {

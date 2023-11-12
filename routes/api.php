@@ -48,7 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/infrastructures/detail/{id}', 'getDetail')->name('infrastructure.get-infrastructure-detail');
         Route::post('/infrastructures', 'store')->name('infrastructure.create-infrastructure');
         Route::patch('/infrastructures/{id}', 'update')->name('infrastructure.update-infrastructure');
-        Route::put('/infrastructures/{id}/approve', 'approve')->name('infrastructure.approve');
+        Route::put('/infrastructures/{id}/accept', 'approve')->name('infrastructure.approve');
+        Route::put('/infrastructures/{id}/deny', 'deny')->name('infrastructure.deny');
 
         Route::delete('/infrastructures/{id}', 'destroy')->name('infrastructure.delete-infrastructure');
     });
