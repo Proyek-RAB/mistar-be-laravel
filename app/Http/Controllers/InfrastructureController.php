@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\InfrastructureHistoryResource;
 use App\Http\Resources\InfrastructureResource;
+use App\Http\Resources\InfrastructureWebResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Infrastructure;
@@ -30,6 +31,20 @@ class InfrastructureController extends Controller
         }
         $paginator = Infrastructure::query()
             ->paginate($currentLimit);
+        $channelId = $request->header('CHANNELID', 'MOBILE');
+
+        if ($channelId == 'WEB') {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'success get all infrastructures',
+                    'data' => InfrastructureWebResource::collection($paginator->items()),
+                    'page' => $currentPage,
+                    'total_page' => $paginator->lastPage(),
+                    'total_data' => $paginator->total()
+                ]
+            );
+        }
         return response()->json(
             [
                 'success' => true,
@@ -68,12 +83,22 @@ class InfrastructureController extends Controller
         );
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         // Find the infrastructure by ID
         $infrastructure = Infrastructure::findOrFail($id);
         $message = 'Get Infrastructure by Id: ' . $id;
         // Return the infrastructure as a JSON response
+        $channelId = $request->header('CHANNELID', 'MOBILE');
+
+        if ($channelId == 'WEB') {
+            return response()->json([
+                'success' => true,
+                'message' => 'success get infrastructure by id',
+                'data' => new InfrastructureWebResource($infrastructure)
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'success get infrastructure by id',
@@ -137,15 +162,27 @@ class InfrastructureController extends Controller
         return $this->sendResponse($infrastructure, "Infrastructure Created");
     }
 
-    public function getDetail($id)
+    public function getDetail($id, Request $request)
     {
-        $infrastructure = Infrastructure::find($id);
+        // Find the infrastructure by ID
+        $infrastructure = Infrastructure::findOrFail($id);
+        $message = 'Get Infrastructure by Id: ' . $id;
+        // Return the infrastructure as a JSON response
+        $channelId = $request->header('CHANNELID', 'MOBILE');
 
-        if (!$infrastructure) {
-            return response()->json(['error' => 'Infrastructure not found'], 404);
+        if ($channelId == 'WEB') {
+            return response()->json([
+                'success' => true,
+                'message' => 'success get infrastructure by id',
+                'data' => new InfrastructureWebResource($infrastructure)
+            ]);
         }
 
-        return $this->sendResponse(json_decode($infrastructure->details), "Detail dari infrastructure " . $infrastructure->name);
+        return response()->json([
+            'success' => true,
+            'message' => 'success get infrastructure by id',
+            'data' => new InfrastructureResource($infrastructure)
+        ]);
     }
 
     public function approve($id)
