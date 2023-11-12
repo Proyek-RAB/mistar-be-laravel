@@ -116,16 +116,18 @@ class InfrastructureController extends Controller
                 ->orderBy('id', 'asc')
                 ->get();
         } else {
+            $idExist = [];
             foreach($subTypeIdList as $subTypeId) {
                 if ($subTypeId == 0) {
                     $infrastructureSubTypeList = InfrastructureSubType::query()
                         ->orderBy('id', 'asc')
                         ->get();
                     break;
-                } else {
+                } else if (array_key_exists($subTypeId, $idExist)) {
                     $infrastructureSubTypeList[] = InfrastructureSubType::query()
                         ->where('id', $subTypeId)
                         ->first();
+                    $idExist[$subTypeId] = true;
                 }
             }
         }
