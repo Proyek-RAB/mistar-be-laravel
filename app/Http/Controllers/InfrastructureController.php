@@ -37,7 +37,7 @@ class InfrastructureController extends Controller
             foreach($request->input('sub_type') as $subType) {
                 $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
                 if ($subTypeExist != null) {
-                    $paginator = $paginator->where('sub_type', $subType);
+                    $paginator = $paginator->orWhere('sub_type', $subType);
                 }
             }
             $paginator = $paginator->paginate($currentLimit);
@@ -371,7 +371,7 @@ class InfrastructureController extends Controller
             foreach($request->input('sub_type') as $subType) {
                 $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
                 if ($subTypeExist != null) {
-                    $infrastructures = $infrastructures->where('sub_type', $subType);
+                    $infrastructures = $infrastructures->orWhere('sub_type', $subType);
                 }
             }
             $infrastructures = $infrastructures
