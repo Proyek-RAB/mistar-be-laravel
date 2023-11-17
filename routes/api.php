@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(InfrastructureController::class)->group(function (){
         Route::get('/search/infrastructures', 'searchInfrastructure')->name('infrastructure.search-all-infrastructure');
-        Route::get('/infrastructures', 'index')->name('infrastructure.get-all-infrastructure');
+        Route::post('/infrastructures', 'index')->name('infrastructure.get-all-infrastructure');
         Route::get('/infrastructures/{id}', 'show')->name('infrastructure.get-all-infrastructure-byId');
         Route::get('/history', 'getInfrastructureHistory')->name('infrastructure.get-all-infrastructure-history');
         Route::get('/infrastructures/history/count', 'getSelfInfrastructureDashboardCount')->name('infrastructure.count-all-infrastructure-history');

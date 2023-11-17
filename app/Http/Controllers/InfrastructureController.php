@@ -30,8 +30,22 @@ class InfrastructureController extends Controller
         if( $request->has('limit') && ctype_digit($request->query('limit'))) {
             $currentLimit = intval($request->query('limit'));
         }
-        $paginator = Infrastructure::query()
-            ->paginate($currentLimit);
+
+        $paginator = null;
+        if ($request->has('sub_type')) {
+            $paginator = Infrastructure::query();
+            foreach($request->input('sub_type') as $subType) {
+                $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
+                if ($subTypeExist != null) {
+                    $paginator = $paginator->where('sub_type', $subType);
+                }
+            }
+            $paginator = $paginator->paginate($currentLimit);
+        } else {
+            $paginator = Infrastructure::query()
+                ->paginate($currentLimit);
+        }
+
         $channelId = $request->header('CHANNELID', 'MOBILE');
 
         if ($channelId == 'WEB') {
@@ -351,16 +365,30 @@ class InfrastructureController extends Controller
     }
 
     public function searchInfrastructure(Request $request) {
-        $infrastructures = Infrastructure::query()
-            ->where('name', 'like', '%' . $request->query('keyword') . '%')
-            ->limit(5)
-            ->get();
+        $infrastructures = null;
+        if ($request->has('sub_type')) {
+            $infrastructures = Infrastructure::query();
+            foreach($request->input('sub_type') as $subType) {
+                $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
+                if ($subTypeExist != null) {
+                    $infrastructures = $infrastructures->where('sub_type', $subType);
+                }
+            }
+            $infrastructures = $infrastructures
+                ->where('name', 'like', '%' . $request->query('keyword') . '%')
+                ->limit(5)
+                ->get();
+        } else {
+            $infrastructures = Infrastructure::query()
+                ->where('name', 'like', '%' . $request->query('keyword') . '%')
+                ->limit(5)
+                ->get();
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'search infrastructure success',
             'data' => InfrastructureSearchResource::collection($infrastructures)
         ]);
     }
-
-
 }
