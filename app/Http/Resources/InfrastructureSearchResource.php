@@ -33,10 +33,19 @@ class InfrastructureSearchResource extends JsonResource
         $type = InfrastructureType::query()->where('name', $this->type)->first();
         $typeIconUrl = $type->icon_url;
 
+        $latLng = [];
+        if ($this->type == Infrastructure::TYPE_POINT) {
+            $latLng = [$details->lat_lng->latitude, $details->lat_lng->longitude];
+        } else {
+            foreach($details->lat_lng as $ltdLng) {
+                $latLng[] = [$ltdLng->latitude, $ltdLng->longitude];
+            }
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'lat_lng' => $details->lat_lng,
+            'lat_lng' => $latLng,
             'sub_type' => $this->sub_type,
         ];
     }
