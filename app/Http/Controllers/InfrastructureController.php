@@ -366,7 +366,7 @@ class InfrastructureController extends Controller
 
     public function searchInfrastructure(Request $request) {
         $infrastructures = null;
-        if ($request->has('sub_type')) {
+        if ($request->has('sub_type') && !$request->has('keyword')) {
             $infrastructures = Infrastructure::query();
             foreach($request->input('sub_type') as $subType) {
                 $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
@@ -375,7 +375,6 @@ class InfrastructureController extends Controller
                 }
             }
             $infrastructures = $infrastructures
-                ->where('name', 'like', '%' . $request->query('keyword') . '%')
                 ->limit(5)
                 ->get();
         } else {
