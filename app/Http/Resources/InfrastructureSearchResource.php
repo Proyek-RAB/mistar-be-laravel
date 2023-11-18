@@ -35,11 +35,9 @@ class InfrastructureSearchResource extends JsonResource
 
         $latLng = [];
         if ($this->type == Infrastructure::TYPE_POINT) {
-            $latLng = [$details->lat_lng->latitude, $details->lat_lng->longitude];
+            $latLng[] = $details->lat_lng;
         } else {
-            foreach($details->lat_lng as $ltdLng) {
-                $latLng[] = [$ltdLng->latitude, $ltdLng->longitude];
-            }
+            $latLng = $details->lat_lng;
         }
 
         return [
@@ -47,6 +45,7 @@ class InfrastructureSearchResource extends JsonResource
             'name' => $this->name,
             'lat_lng' => $latLng,
             'sub_type' => $this->sub_type,
+            'type' => $this->type,
         ];
     }
 }
