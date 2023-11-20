@@ -65,7 +65,7 @@ class AuthController extends Controller
             );
         }
 
-        $timeDiff = Carbon::parse('2019-09-13 11:37 AM')->diffInSeconds($user->updated_at);
+        $timeDiff = Carbon::now()->diffInSeconds($user->updated_at);
 
         if ($timeDiff >= self::EXPIRY_RESET_TIME) {
             return response()->json(
