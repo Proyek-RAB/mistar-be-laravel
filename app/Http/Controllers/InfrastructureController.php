@@ -23,7 +23,7 @@ class InfrastructureController extends Controller
     public function index(Request $request)
     {
         $currentPage = 1;
-        $currentLimit = 20;
+        $currentLimit = 20000;
         if( $request->has('page') && ctype_digit($request->query('page'))) {
             $currentPage = intval($request->query('page'));
         }
