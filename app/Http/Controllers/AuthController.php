@@ -12,6 +12,88 @@ use App\Http\Resources\RegisterResource;
 use Illuminate\Support\Str;
 class AuthController extends Controller
 {
+    public function resetPassword(Request $request) {
+        $email = $request->input('email');
+        $user = User::query()->where('email', $email)->first();
+        if ($user == null) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'email not found',
+                    'data' => null
+                ]
+            );
+        }
+
+        $otp = random_int(100000, 999999);
+        $resetToken = uniqid();
+        $user->update([
+            'reset_token' => $resetToken,
+            'otp' => strval($otp),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reset password success. Please check your email',
+            'data' => [
+                'message' => '"otp" FIELD IS ONLY FOR INTEGRATION PURPOSE. WILL BE REMOVED LATER ON',
+                'reset_token' => $resetToken,
+                'otp' => strval($otp)
+            ]
+        ]);
+    }
+
+    public function forgotPasswordOtp(Request $request) {
+        $reset_token = $request->query('reset_token');
+        $otp = $request->input('otp');
+        $user = User::query()
+            ->where('reset_token', $reset_token)
+            ->where('otp', $otp)
+            ->first();
+        if ($user == null) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'reset token or otp is not valid',
+                    'data' => null
+                ]
+            );
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'otp validation success',
+            'data' => [
+                'change_password_token' => $reset_token,
+            ]
+        ]);
+    }
+
+    public function changePassword (Request $request) {
+        $changePasswordToken = $request->query('change_password_token');
+        $user = User::query()
+            ->where('reset_token', $changePasswordToken)
+            ->first();
+        if ($user == null) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'change password token is not valid',
+                    'data' => null
+                ]
+            );
+        }
+        $user->update([
+            'password' => $request->input('password')
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'change password success',
+            'data' => null
+        ]);
+    }
+
     public function register(Request $request): RegisterResource {
         $this->validate(
             $request,
@@ -60,7 +142,7 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-        
+
         /** @var \App\Models\MyUserModel $user **/
         $tokenResult = $user->createToken(request('device', 'Unknown Device'));
         $token = $tokenResult->plainTextToken;
@@ -105,23 +187,5 @@ class AuthController extends Controller
                 ]
             ]);
         }
-    }
-
-    public function changePassword(Request $request) {
-        $newPassword = $request->input('password');
-        $email = $request->input('email');
-
-        $user = User::query()->where(
-            'email', $email
-        )->first();
-
-        $user->password = $newPassword;
-        $user->save();
-
-        return response()->json([
-            'success' => true,
-            'message'=> 'change password success',
-            'data' => null
-        ]);
     }
 }

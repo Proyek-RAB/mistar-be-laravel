@@ -48,6 +48,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar_url',
+        'reset_token',
+        'otp'
     ];
 
     /**
