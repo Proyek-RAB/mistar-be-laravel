@@ -50,7 +50,6 @@ class User extends Authenticatable
         'avatar_url',
         'reset_token',
         'otp',
-        'updated_at'
     ];
 
     /**

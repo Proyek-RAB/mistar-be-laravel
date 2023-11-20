@@ -33,8 +33,8 @@ class AuthController extends Controller
         $user->update([
             'reset_token' => $resetToken,
             'otp' => strval($otp),
-            'updated_at' => DB::raw('NOW()'),
         ]);
+        $user->save();
 
         return response()->json([
             'success' => true,
