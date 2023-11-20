@@ -49,7 +49,8 @@ class User extends Authenticatable
         'password',
         'avatar_url',
         'reset_token',
-        'otp'
+        'otp',
+        'updated_at'
     ];
 
     /**
