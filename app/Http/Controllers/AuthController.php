@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\LoginResource;
@@ -32,6 +33,7 @@ class AuthController extends Controller
         $user->update([
             'reset_token' => $resetToken,
             'otp' => strval($otp),
+            'updated_at' => DB::raw('NOW()'),
         ]);
 
         return response()->json([
