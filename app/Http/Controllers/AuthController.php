@@ -53,7 +53,6 @@ class AuthController extends Controller
         $otp = $request->input('otp');
         $user = User::query()
             ->where('reset_token', $reset_token)
-            ->where('otp', $otp)
             ->first();
         if ($user == null) {
             return response()->json(
@@ -72,6 +71,16 @@ class AuthController extends Controller
                 [
                     'success' => false,
                     'message' => 'OTP_EXPIRED',
+                    'data' => null
+                ]
+            );
+        }
+
+        if ($user->otp != $otp) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'OTP_INVALID',
                     'data' => null
                 ]
             );
