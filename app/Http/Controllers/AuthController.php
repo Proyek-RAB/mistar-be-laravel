@@ -59,7 +59,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'reset token or otp is not valid',
+                    'message' => 'OTP_INVALID',
                     'data' => null
                 ]
             );
@@ -71,7 +71,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'reset token expired',
+                    'message' => 'OTP_EXPIRED',
                     'data' => null
                 ]
             );
