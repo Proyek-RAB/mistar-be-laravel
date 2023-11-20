@@ -13,7 +13,7 @@ use App\Http\Resources\RegisterResource;
 use Illuminate\Support\Str;
 class AuthController extends Controller
 {
-    const EXPIRY_RESET_TIME = 20;
+    const EXPIRY_RESET_TIME = 60;
     public function resetPassword(Request $request) {
         $email = $request->input('email');
         $user = User::query()->where('email', $email)->first();
