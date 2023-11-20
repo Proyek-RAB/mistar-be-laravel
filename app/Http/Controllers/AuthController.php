@@ -72,6 +72,7 @@ class AuthController extends Controller
                 [
                     'success' => false,
                     'message' => 'reset token expired',
+                    'test' => $timeDiff,
                     'data' => null
                 ]
             );
