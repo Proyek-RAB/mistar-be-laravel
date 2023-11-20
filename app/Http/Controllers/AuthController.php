@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\LoginResource;
@@ -12,6 +13,7 @@ use App\Http\Resources\RegisterResource;
 use Illuminate\Support\Str;
 class AuthController extends Controller
 {
+    const EXPIRY_RESET_TIME = 20;
     public function resetPassword(Request $request) {
         $email = $request->input('email');
         $user = User::query()->where('email', $email)->first();
@@ -38,7 +40,7 @@ class AuthController extends Controller
             'data' => [
                 'message' => '"otp" FIELD IS ONLY FOR INTEGRATION PURPOSE. WILL BE REMOVED LATER ON',
                 'reset_token' => $resetToken,
-                'countdown' => 60,
+                'countdown' => self::EXPIRY_RESET_TIME,
                 'otp' => strval($otp)
             ]
         ]);
@@ -56,6 +58,18 @@ class AuthController extends Controller
                 [
                     'success' => false,
                     'message' => 'reset token or otp is not valid',
+                    'data' => null
+                ]
+            );
+        }
+
+        $timeDiff = Carbon::parse('2019-09-13 11:37 AM')->diffInSeconds($user->updated_at);
+
+        if ($timeDiff >= self::EXPIRY_RESET_TIME) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'reset token expired',
                     'data' => null
                 ]
             );
