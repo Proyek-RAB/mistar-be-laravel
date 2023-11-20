@@ -38,6 +38,7 @@ class AuthController extends Controller
             'data' => [
                 'message' => '"otp" FIELD IS ONLY FOR INTEGRATION PURPOSE. WILL BE REMOVED LATER ON',
                 'reset_token' => $resetToken,
+                'countdown' => 60,
                 'otp' => strval($otp)
             ]
         ]);
