@@ -384,6 +384,7 @@ class InfrastructureController extends Controller
 
     public function searchInfrastructure(Request $request) {
         $infrastructures = null;
+        $user = auth()->user();
         if ($request->has('sub_type')) {
             $infrastructures = Infrastructure::query();
             foreach($request->input('sub_type') as $subType) {
@@ -403,11 +404,19 @@ class InfrastructureController extends Controller
                 ->get();
         }
 
+        $requestedData = InfrastructureResource::collection($infrastructures)
+        ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED);
+
+        $userData = InfrastructureResource::collection($infrastructures)
+            ->where('user_id', $user->id)
+            ->where('status_approval', '<>', Infrastructure::STATUS_APPROVAL_REQUESTED);
+
+        $combinedData = $requestedData->concat($userData);
 
         return response()->json([
             'success' => true,
             'message' => 'search infrastructure success',
-            'data' => InfrastructureSearchResource::collection($infrastructures)
+            'data' => $combinedData
         ]);
     }
 }
