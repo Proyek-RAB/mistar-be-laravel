@@ -69,15 +69,6 @@ class InfrastructureController extends Controller
             );
         }
 
-        // dd($paginator);
-
-        //filtering si pemilik user, dan seluruh user.
-        // foreach(InfrastructureResource::collection($paginator->items()) as $item){
-        //     if ($item->created_by != $user->full_name && $item->approval_status == Infrastructure::STATUS_APPROVAL_REQUESTED)  {
-        //         $data->push($item);
-        //     }
-        // }
-
         $requestedData = InfrastructureResource::collection($paginator->items())
             ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED);
 
@@ -86,9 +77,6 @@ class InfrastructureController extends Controller
             ->where('status_approval', '<>',Infrastructure::STATUS_APPROVAL_REQUESTED);
 
         $combinedData = $requestedData->concat($userData);
-
-        // If you want to get the final result as an array, you can use the all() method
-        $resultArray = $combinedData->all();
 
         return response()->json(
             [
@@ -415,7 +403,7 @@ class InfrastructureController extends Controller
                 ->get();
         }
 
-            
+
         return response()->json([
             'success' => true,
             'message' => 'search infrastructure success',

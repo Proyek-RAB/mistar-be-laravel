@@ -164,6 +164,7 @@ class DashboardController extends Controller
         }
         $paginator = User::query()
             ->where('role', User::ROLE_MEMBER)
+            ->where('full_name', 'like', '%' . $request->query('keyword') . '%')
             ->paginate($currentLimit);
         return response()->json(
             [
