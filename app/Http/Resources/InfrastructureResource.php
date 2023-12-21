@@ -44,6 +44,7 @@ class InfrastructureResource extends JsonResource
             'sub_type_icon_url' => $subTypeIconUrl,
             'status' => $this->status,
             'approved_status' => $this->status_approval,
+            'zip_code' => $this->zip_code,
             'details' => $details,
             'images' => $thumbnailImageUrls,
             'created_by' => $this->user->full_name,

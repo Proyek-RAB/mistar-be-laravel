@@ -46,6 +46,7 @@ class InfrastructureSearchResource extends JsonResource
             'lat_lng' => $latLng,
             'sub_type' => $this->sub_type,
             'type' => $this->type,
+            'zip_code'=> $this->zip_code
         ];
     }
 }

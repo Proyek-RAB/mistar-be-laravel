@@ -30,6 +30,8 @@ class User extends Authenticatable
 
     const ROLE_ADMIN = 'ADMIN';
 
+    const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -45,6 +47,7 @@ class User extends Authenticatable
         'type',
         'role',
         'full_name',
+        'zip_code',
         'email',
         'password',
         'avatar_url',

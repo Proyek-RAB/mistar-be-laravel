@@ -55,6 +55,7 @@ class Infrastructure extends Model implements HasMedia
         'sub_type',
         'type_id',
         'type',
+        'zip_code',
         'details',
         'image',
         'status',

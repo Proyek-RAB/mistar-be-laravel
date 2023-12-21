@@ -39,6 +39,7 @@ class InfrastructureWebResource extends JsonResource
             'sub_type' => $this->sub_type,
             'sub_type_icon_url' => $subTypeIconUrl,
             'status' => $this->status,
+            'zip_code' => $this->zip_code,
             'approved_status' => $this->status_approval,
             'details' => $details,
             'images' => $thumbnailImageUrls,

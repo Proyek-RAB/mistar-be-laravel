@@ -1,0 +1,194 @@
+openapi: '3.0.2'
+info:
+  title: MISTAR BE
+  version: '1.0'
+servers:
+  - url: https://be.mistardev.site/
+paths:
+  /api/login:
+    post:
+      summary: User Login
+      responses:
+        '200':
+          description: OK
+
+  /api/register:
+    post:
+      summary: User Registration
+      responses:
+        '200':
+          description: OK
+
+  /api/search/infrastructures:
+    post:
+      summary: Search Infrastructures
+      responses:
+        '200':
+          description: OK
+
+  /api/infrastructures/list:
+    post:
+      summary: Get All Infrastructures
+      responses:
+        '200':
+          description: OK
+
+  /api/infrastructures:
+    post:
+      summary: Create Infrastructure
+      responses:
+        '200':
+          description: OK
+
+  /api/infrastructures/{id}:
+    get:
+      summary: Get Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /api/infrastructures/history/count:
+    get:
+      summary: Get Infrastructure History Count
+      responses:
+        '200':
+          description: OK
+
+  /dashboard:
+    get:
+      summary: Get Summary Report for Dashboard
+      responses:
+        '200':
+          description: OK
+
+  /dashboard/point:
+    get:
+      summary: Get Point Report for Dashboard
+      responses:
+        '200':
+          description: OK
+
+  /dashboard/line:
+    get:
+      summary: Get Line Report for Dashboard
+      responses:
+        '200':
+          description: OK
+
+  /dashboard/area:
+    get:
+      summary: Get Area Report for Dashboard
+      responses:
+        '200':
+          description: OK
+
+  /dashboard/user:
+    get:
+      summary: Get User Report for Dashboard
+      responses:
+        '200':
+          description: OK
+
+  /search/infrastructures:
+    post:
+      summary: Search Infrastructures (Alias)
+      responses:
+        '200':
+          description: OK
+
+  /history:
+    get:
+      summary: Get Infrastructure History
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/history/subtype/count:
+    post:
+      summary: Get Infrastructure History Count by Subtype
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/detail/{id}:
+    get:
+      summary: Get Infrastructure Detail by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/{id}:
+    patch:
+      summary: Update Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/{id}/accept:
+    put:
+      summary: Approve Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/{id}/deny:
+    put:
+      summary: Deny Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructures/{id}/status:
+    put:
+      summary: Change Status of Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructure/request:
+    get:
+      summary: Get All Requested Infrastructures
+      responses:
+        '200':
+          description: OK
+
+  /infrastructure/request/{id}:
+    patch:
+      summary: Update Requested Infrastructure by ID
+      responses:
+        '200':
+          description: OK
+
+  /infrastructuretype:
+    get:
+      summary: Get All Infrastructure Types
+      responses:
+        '200':
+          description: OK
+
+  /infrastructuresubtype:
+    get:
+      summary: Get All Infrastructure Subtypes
+      responses:
+        '200':
+          description: OK
+
+  /icons/{folder}/{filename}:
+    get:
+      summary: Get Icon by Folder and Filename
+      parameters:
+        - name: folder
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Folder name
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+          description: File name
+      responses:
+        '200':
+          description: OK

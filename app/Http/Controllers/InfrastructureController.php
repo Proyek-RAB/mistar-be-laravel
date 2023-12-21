@@ -32,7 +32,14 @@ class InfrastructureController extends Controller
         }
 
         $paginator = null;
-        if ($request->has('sub_type')) {
+        if ($request->has('zip_code')) {
+            $zipCode = $request->input('zip_code');
+            $paginator = Infrastructure::query()->where('zip_code', $zipCode)->paginate($currentLimit);
+        } else if ($request->has('status_approval')) {
+            $status_approval = $request->input('status_asspproval');
+            $paginator = Infrastructure::query()->where('status_approval', $status_approval)->paginate($currentLimit);
+        }
+        else if ($request->has('sub_type')) {
             $paginator = Infrastructure::query();
             foreach($request->input('sub_type') as $subType) {
                 $subTypeExist = InfrastructureSubType::query()->where('name', $subType)->first();
@@ -45,6 +52,7 @@ class InfrastructureController extends Controller
             $paginator = Infrastructure::query()
                 ->paginate($currentLimit);
         }
+        $user = auth()->user();
 
         $channelId = $request->header('CHANNELID', 'MOBILE');
 
@@ -60,11 +68,33 @@ class InfrastructureController extends Controller
                 ]
             );
         }
+
+        // dd($paginator);
+
+        //filtering si pemilik user, dan seluruh user.
+        // foreach(InfrastructureResource::collection($paginator->items()) as $item){
+        //     if ($item->created_by != $user->full_name && $item->approval_status == Infrastructure::STATUS_APPROVAL_REQUESTED)  {
+        //         $data->push($item);
+        //     }
+        // }
+
+        $requestedData = InfrastructureResource::collection($paginator->items())
+            ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED);
+
+        $userData = InfrastructureResource::collection($paginator->items())
+            ->where('user_id', $user->id)
+            ->where('status_approval', '<>',Infrastructure::STATUS_APPROVAL_REQUESTED);
+
+        $combinedData = $requestedData->concat($userData);
+
+        // If you want to get the final result as an array, you can use the all() method
+        $resultArray = $combinedData->all();
+
         return response()->json(
             [
                 'success' => true,
                 'message' => 'success get all infrastructures',
-                'data' => InfrastructureResource::collection($paginator->items()),
+                'data' => $combinedData,
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
                 'total_data' => $paginator->total()
@@ -204,8 +234,6 @@ class InfrastructureController extends Controller
         //     'status' => 'required',
         // ]);
 
-
-
         $validated = $request->validated();
         $type = InfrastructureType::find($validated['type_id'])->name;
         $sub_type = InfrastructureSubType::find($validated['sub_type_id'])->name;
@@ -221,7 +249,9 @@ class InfrastructureController extends Controller
             'type_id'=> $request->input('type_id'),
             'type' => $type,
             'status' => $request->input('status'),
+            'zip_code' => $request->input('zip_code'),
             'details' => json_encode($request->input('details')),
+            'zip_code'=> $request->input('zip_code'),
             'image' => $request->input('image'),
         ]);
 
@@ -385,6 +415,7 @@ class InfrastructureController extends Controller
                 ->get();
         }
 
+            
         return response()->json([
             'success' => true,
             'message' => 'search infrastructure success',

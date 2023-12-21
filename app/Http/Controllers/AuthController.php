@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\RegisterResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+
+use Throwable;
+
+
 class AuthController extends Controller
 {
     const EXPIRY_RESET_TIME = 60;
@@ -126,13 +131,18 @@ class AuthController extends Controller
             [
                 'email' => ['required', 'email','unique:users,email'],
                 'password' => ['required'],
+                'zip_code' => ['required'],
             ],
             [
             ]
         );
-
+        // dd($request->all());
         $userRole = User::ROLE_MEMBER;
         if ($request->has('role') && $request->input('role') == User::ROLE_ADMIN) {
+            $userRole = User::ROLE_ADMIN;
+        }
+
+        else if ($request->has('role') && $request->input('role') == User::ROLE_SUPER_ADMIN) {
             $userRole = User::ROLE_ADMIN;
         }
 
@@ -140,6 +150,7 @@ class AuthController extends Controller
             [
                 'full_name' => $request->input('full_name'),
                 'email' => $request->input('email'),
+                'zip_code'=> (int)$request->input('zip_code'),
                 'role' => $userRole,
                 'password' => $request->input('password'),
                 'avatar_url' => 'https://www.clipartmax.com/png/middle/347-3473462_blue-icon-data-public-clip-art-black-and-white-library-link-icon.png',
@@ -213,5 +224,39 @@ class AuthController extends Controller
                 ]
             ]);
         }
+    }
+
+    public function toAdmin($email,$zip_code) {
+
+        // $zip_code = (int)$zip_code;
+        // dd($email, $zip_code);
+
+        $user = User::query()
+            ->where('email', $email)
+            ->where('zip_code', $zip_code)
+            ->first();
+
+        // If the user is found, update the role
+        if ($user) {
+            $user->update(['role' => User::ROLE_ADMIN]);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'User with email: ' . $email . ' from Member is now an Admin. Welcome, ' . $user->full_name . '!',
+                    'data' => $user
+                ]
+            );
+        } else {
+            // Handle the case where the user is not found
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'User not found with email: ' . $email . ' and specified role and zip_code. And user is still',
+                    'data' => null
+                ]
+            );
+        }
+
     }
 }

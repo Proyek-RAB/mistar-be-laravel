@@ -30,6 +30,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/forgot-password', 'resetPassword')->name('auth.reset-password');
     Route::post('/forgot-password/otp', 'forgotPasswordOtp')->name('auth.reset-password-otp');
     Route::post('/change-password', 'changePassword')->name('auth.change-password');
+    Route::patch('/admin/{email}/{zip_code}/update', 'toAdmin')->name('auth.update-toAdmin');//->where(['zip_code' => '[0-9]+']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

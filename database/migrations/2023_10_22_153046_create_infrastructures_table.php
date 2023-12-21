@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('image')->nullable();
             $table->string('status')->default(\App\Models\Infrastructure::STATUS_GOOD);
             $table->string('status_approval')->default("requested");
+            $table->integer('zip_code')->nullable();
             $table->json('details')->nullable();
             $table->timestamps();
 
