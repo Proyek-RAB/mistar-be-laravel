@@ -131,7 +131,6 @@ class AuthController extends Controller
             [
                 'email' => ['required', 'email','unique:users,email'],
                 'password' => ['required'],
-                'zip_code' => ['required'],
             ],
             [
             ]
