@@ -82,7 +82,7 @@ class InfrastructureController extends Controller
             [
                 'success' => true,
                 'message' => 'success get all infrastructures',
-                'data' => $combinedData,
+                'data' => InfrastructureResource::collection($combinedData),
                 'page' => $currentPage,
                 'total_page' => $paginator->lastPage(),
                 'total_data' => $paginator->total()
@@ -416,7 +416,7 @@ class InfrastructureController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'search infrastructure success',
-            'data' => $combinedData
+            'data' => InfrastructureResource::collection($combinedData),
         ]);
     }
 }
