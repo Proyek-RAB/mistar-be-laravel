@@ -70,11 +70,11 @@ class InfrastructureController extends Controller
         }
 
         $requestedData = InfrastructureResource::collection($paginator->items())
-            ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED);
+            ->where('status_approval', Infrastructure::STATUS_APPROVAL_APPROVED);
 
         $userData = InfrastructureResource::collection($paginator->items())
             ->where('user_id', $user->id)
-            ->where('status_approval', '<>',Infrastructure::STATUS_APPROVAL_REQUESTED);
+            ->where('status_approval', '<>',Infrastructure::STATUS_APPROVAL_APPROVED);
 
         $combinedData = $requestedData->concat($userData);
 
@@ -405,11 +405,11 @@ class InfrastructureController extends Controller
         }
 
         $requestedData = InfrastructureResource::collection($infrastructures)
-        ->where('status_approval', Infrastructure::STATUS_APPROVAL_REQUESTED);
+        ->where('status_approval', Infrastructure::STATUS_APPROVAL_APPROVED);
 
         $userData = InfrastructureResource::collection($infrastructures)
             ->where('user_id', $user->id)
-            ->where('status_approval', '<>', Infrastructure::STATUS_APPROVAL_REQUESTED);
+            ->where('status_approval', '<>', Infrastructure::STATUS_APPROVAL_APPROVED);
 
         $combinedData = $requestedData->concat($userData);
 
