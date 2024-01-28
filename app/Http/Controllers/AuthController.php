@@ -125,16 +125,26 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request): RegisterResource {
-        $this->validate(
-            $request,
-            [
-                'email' => ['required', 'email','unique:users,email'],
-                'password' => ['required'],
-            ],
-            [
-            ]
-        );
+    public function register(Request $request) {
+        // Manually validate email uniqueness
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Check for email uniqueness
+        $validator->after(function ($validator) use ($request) {
+            $existingUser = User::where('email', $request->input('email'))->first();
+
+            if ($existingUser) {
+                $validator->errors()->add('email', 'Email sudah digunakan, gunakan email lain');
+            }
+        });
+
+        // If validation fails, return the error response
+        if ($validator->fails()) {
+            return response()->json(RegisterResource::errorResponse($validator->errors()->first('email')), 400);
+        }
         // dd($request->all());
         $userRole = User::ROLE_MEMBER;
         if ($request->has('role') && $request->input('role') == User::ROLE_ADMIN) {
@@ -142,9 +152,10 @@ class AuthController extends Controller
         }
 
         else if ($request->has('role') && $request->input('role') == User::ROLE_SUPER_ADMIN) {
-            $userRole = User::ROLE_ADMIN;
+            $userRole = User::ROLE_SUPER_ADMIN;
         }
 
+        $successMessage = 'success register user';
         $user = User::query()->create(
             [
                 'full_name' => $request->input('full_name'),
@@ -156,11 +167,11 @@ class AuthController extends Controller
             ]
         );
 
-        return (new RegisterResource($user))
-            ->additional([
-                'success' => true,
-                'message' => 'success register user'
-            ]);
+        $id = User::query()
+            ->get(["id"])
+            ->where($user->email, $request->input('email'));
+
+        return (new RegisterResource($user));
     }
 
     public function login(Request $request) {
