@@ -13,13 +13,15 @@ use App\Http\Resources\LoginResource;
 use App\Http\Resources\RegisterResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use App\Mail\OtpMail;
+use Illuminate\Support\Facades\Mail;
 
 use Throwable;
 
 
 class AuthController extends Controller
 {
-    const EXPIRY_RESET_TIME = 60;
+    const EXPIRY_RESET_TIME = 300;
     public function resetPassword(Request $request) {
         $email = $request->input('email');
         $user = User::query()->where('email', $email)->first();
@@ -40,6 +42,9 @@ class AuthController extends Controller
             'otp' => strval($otp),
         ]);
         $user->save();
+
+        // Send the OTP email
+        Mail::to($user->email)->send(new OtpMail($otp));
 
         return response()->json([
             'success' => true,
